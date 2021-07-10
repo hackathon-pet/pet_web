@@ -20,7 +20,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent 
 ROOT_DIR = os.path.dirname(BASE_DIR) 
-secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json') # secrets.json 파일 위치 
+secret_file = os.path.join(BASE_DIR, 'secrets.json') # secrets.json 파일 위치 
 with open(secret_file) as f: 
     secrets = json.loads(f.read()) 
 def get_secret(setting, secrets=secrets): 
@@ -29,7 +29,7 @@ def get_secret(setting, secrets=secrets):
     except KeyError: 
         error_msg = "Set the {} environment variable".format(setting) 
         raise ImproperlyConfigured(error_msg) 
-    SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = get_secret("SECRET_KEY")
 
 
 
