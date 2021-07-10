@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <title>P.E.T</title>
   {% load static %}
-  {% load socialaccount %}
-  {% providers_media_js %}
   {% load sass_tags %}
   <link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/base.scss' %}">
   {% block style %}
@@ -45,12 +43,6 @@
           {% else %}
           <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
           <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>
-          <a class="mdl-navigation__link" href="{% provider_login_url 'google' %}">
-            <img src="{% static 'petPosts/img/btn_google_signin_light_normal_web@2x.png' %}" style="width: 200px; height: auto;"/>
-          </a>
-          <a class="mdl-navigation__link" href="{% provider_login_url 'naver'%}">
-            <img src="{% static 'petPosts/img/btnG_short.png' %}" style="width: 100px; height: auto;"/>
-          </a>
           {% endif %}
         </nav>
       </div>
@@ -64,8 +56,6 @@
         {% else %}
         <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
         <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>
-        <a class="mdl-navigation__link" href="{% provider_login_url 'google' %}">구글 로그인</a>
-        <a class="mdl-navigation__link" href="{% provider_login_url 'naver'%}">네이버 로그인</a>
         {% endif %}
       </nav>
     </div>

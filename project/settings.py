@@ -28,6 +28,8 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg) 
 SECRET_KEY = get_secret("SECRET_KEY")
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,7 +56,6 @@ INSTALLED_APPS = [
     'sass_processor',
     'petPosts.apps.PetpostsConfig',
     'accounts.apps.AccountsConfig',
-    'category.apps.CategoryConfig'
 ]
 
 MIDDLEWARE = [
