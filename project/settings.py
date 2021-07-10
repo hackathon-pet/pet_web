@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'sass_processor',
     'petPosts',
     'accounts',
-    'category',
     'pets',
 ]
 

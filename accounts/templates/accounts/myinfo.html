@@ -1,18 +1,9 @@
-<h1> My info. </h1>
-<form method="POST" action="{%url 'myinfo' id=user.id %}">
-    {% csrf_token %}
-    e-mail:
-    <br>
-    <input name="email" type="text" value="{{user.profile.email}}">
-    <br>
-    <br>
-    소개:
-    <br>
-    <input name="introduction" type="text" value="{{user.profile.introduction}}">
-    <br>
-    <br>
-    <input type="submit" value="update my info">
-</form>
+<h2> My info! </h2>
+<div>
+    <p> email : {{profile.email}} </p>
+    <p> introduction : {{profile.introduction}} </p>
+</div>
+
 <h2> My pets! </h2>
 <div>
     {% for pet in pets %}
