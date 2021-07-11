@@ -7,11 +7,10 @@
 <h2> My pets! </h2>
 <div>
     {% for pet in pets %}
-    <a href="{% url 'pets:showpet' pet.id %}">
-    <p>{{pet.name}}</p>
-    <p>{{pet.introduction}}</p>
-    <p>{{pet.image}}</p>
-    </a>
+      <a href="{% url 'pets:showpet' pet.id %}">
+      <p>{{pet.name}}</p></a>
+      <p>{{pet.introduction}}</p>
+      <img src="{{ pet.image.url }}"><br>
     {% endfor %}
     <a href="{% url 'pets:newpet' %}">
     Add your lovely pet!

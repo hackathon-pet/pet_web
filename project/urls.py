@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import include
 import petPosts.views
 import pets.views
@@ -33,3 +33,5 @@ urlpatterns = [
     path('accounts/myinfo/', accounts.views.myinfo, name='myinfo'),
     path('social_accounts/', include('allauth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
