@@ -29,3 +29,4 @@ def editmyinfo(request):
         return redirect('/posts')
 
     return render(request, 'accounts/editmyinfo.html')
+
