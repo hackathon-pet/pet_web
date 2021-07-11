@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'petPosts.apps.PetpostsConfig',
     'accounts.apps.AccountsConfig',
     'pets.apps.PetsConfig',
-  
+
     #allauth
     'allauth',
     'allauth.account',
@@ -163,3 +163,11 @@ SITE_ID = 1
 
 ACCOUNT_LOGOUT_ON_GET = True
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+ACCOUNT_LOGOUT_ON_GET = True
