@@ -13,7 +13,7 @@ def newpet(request, id):
     introduction = request.POST['introduction']
     owner=request.user.profile
     pet = Pet.objects.create(name=name, image=image, introduction=introduction, owner=owner, category = category)
-    return render(request, 'accounts/myinfo.html', {'pet':pet})
+    return redirect('/accounts/myinfo')
 
 def showpet(request, id):
   pet = Pet.objects.get(id=id)
