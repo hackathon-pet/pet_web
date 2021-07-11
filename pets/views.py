@@ -13,9 +13,9 @@ def newpet(request):
     introduction = request.POST['introduction']
     owner=request.user.profile
     pet = Pet.objects.create(name=name, image=image, introduction=introduction, owner=owner, category = category)
-    return render(request, 'accounts/myinfo.html', {'pet':pet})
+    return redirect('/accounts/myinfo')
 
-def showpet(request):
+def showpet(request, id):
   pet = Pet.objects.get(id=id)
   return render(request, 'pets/showpet.html', {'pet':pet})
 
@@ -25,15 +25,11 @@ def updatepet(request):
   pass
 
 class FollowView:
-    def create(request, id):
-        pet = Pet.objects.get(id=id)
-        follow_status = pet.follower_users.filter(user_id=request.user.id)
-        if follow_status.count() > 0:
-            pet.follower_users.get(user=request.user).delete()
-        else:
-            Follow.objects.create(user=request.user, pet=pet)
-        return JsonResponse({
-            'followStatus': follow_status.count(), 
-            'petFollowCount': pet.like_set.count(), 
-            'userFollowCount': request.user.follow_pet.count()
-        })
+  def create(request, id):
+    pet = Pet.objects.get(id=id)
+    follow_status = pet.follow_users.filter(id=request.user.id)
+    if follow_status.count() > 0:
+      pet.follow_users.get(id=request.user.id).delete()
+    else:
+      Follow.objects.create(user=request.user, pet=pet)
+    return redirect ('/pets')
