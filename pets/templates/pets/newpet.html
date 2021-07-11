@@ -5,7 +5,6 @@
   <form action="{% url 'accounts:myinfo' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <p>펫 종류 선택</p>
-    {% endfor %}
     <p>이름</p>
     <input name="name" /> <br />
     <input type="file" name="image">

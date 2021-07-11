@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:id>/', views.showpet, name='showpet'),
     path('<int:id>/deletepet/', views.deletepet, name='deletepet'),
     path('<int:id>/updatepet/', views.updatepet, name='updatepet'),
+    path('<int:id>/follow/', views.FollowView.create, name='follow'),
 ]
-
