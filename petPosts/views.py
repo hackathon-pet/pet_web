@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Post, Comment, Like, CommentLike
+from .models import Post, Photo, Comment, Like, CommentLike
 from accounts.models import Profile
 from django.db.models import Count
 from django.contrib.auth.models import User
@@ -16,11 +16,15 @@ def index(request):
                 'posts': posts, 
             }
         )
-    
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content, author=request.user)
+        for img in request.FILES.getlist('imgs'):
+            photo = Photo()
+            photo.post = post
+            photo.image = img
+            photo.save()
         return redirect('petPosts:index') 
 
 def ranking(request):
@@ -59,8 +63,7 @@ def delete(request, id):
 def update(request, id):
     if request.method == 'GET':
         post = Post.objects.get(id=id)
-        tags = Tag.objects.all()
-        return render(request, 'petPosts/update.html', {'post':post, 'tags': tags})
+        return render(request, 'petPosts/update.html', {'post':post})
     
     elif request.method == 'POST':
         post = Post.objects.filter(id=id)

@@ -1,3 +1,8 @@
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User 
+from accounts.models import Profile
+
 class Pet(models.Model):
   owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
   name = models.CharField(max_length=20, blank=True)
@@ -19,3 +24,7 @@ class Pet(models.Model):
 
   def __str__(self):     
     return f'id={self.id}, name={self.name}'
+
+class Follow(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  pet = models.ForeignKey(Pet, on_delete=models.CASCADE)

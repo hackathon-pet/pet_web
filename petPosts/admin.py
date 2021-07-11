@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Post   # 추가
+from .models import Post, Photo
 
-admin.site.register(Post)
-# Register your models here.
+class PhotoInline(admin.TabularInline):
+    model = Photo
+
+class PostAdmin(admin.ModelAdmin):
+    inlines = [PhotoInline, ]
+
+admin.site.register(Post, PostAdmin)
+

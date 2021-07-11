@@ -11,6 +11,9 @@
     {% endfor %}
     <p>title</p>
     <input name="title" /> <br />
+    {% for photo in post.photo_set.all%}
+      <img src="{{photo.image.url}}" width="50"><br>
+    {% endfor %}
     <p>content</p>
     <textarea name="content" rows="30" cols="50"></textarea> <br />
     <input type="submit" value="submit" />
