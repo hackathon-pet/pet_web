@@ -27,10 +27,10 @@
      <div class="card mt-2 mr-2" style="width: 20rem;">
         <div class="card-header">
           <span>{{ post.pet.name }}</span>
-          {% if post.pet.id == pet.id %}
+          {% if post.pet.owner == request.user %}
             <a onclick="onDeletePost({{post.id}})">삭제</a>
           </form>
-          <a href={% url 'posts:update' post.id %} class="btn btn-success">수정</a>
+          <a href={% url 'petPosts:update' post.id %} class="btn btn-success">수정</a>
           {% endif %}
         </div>
         
@@ -88,11 +88,13 @@
       </div>
     {% endfor %}
   </div>
+  {% if user.is_authenticated %}
   <div class="myfollowing">
       {% for pet in following_pets%}
         <p>{{ pet.name}} </p>
         <div> {{ forloop.counter }} {{image.url}} </div>
       {% endfor %}
   </div>
+  {%endif%}
 {% endblock %}
 
