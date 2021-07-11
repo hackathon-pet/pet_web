@@ -1,23 +1,32 @@
 
 {% extends 'base.html' %}
 {% load bootstrap4 %}
-{% block body %}
+
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/index.scss' %}">
+{% endblock style %}
+
+{% load static %}
+{% block js %}
+<script type="module" src="{% static 'petPosts/js/index.js' %}"></script>
+{% endblock js %}
+
+{% block content %}
+<script src="{% static 'petPosts/js/index2.js' %}"></script>
   <div class="ranking">
-      {% for post in post_rank%}
-        <div> {{ forloop.counter }} {{post.image.url}} </div>
-        <p>{{ post.pet.name}} </p>
+      {% for pet in pets_by_ranking%}
+        <p>{{ pet[0].name}} </p>
+        <div> {{ forloop.counter }} {{pet[0].image.url}} </div>
       {% endfor %}
   </div>
   <div class="row justify-content-center">
-    {% for post in posts %}
+    {% for post in feed %}
      <div class="card mt-2 mr-2" style="width: 20rem;">
         <div class="card-header">
           <span>{{ post.pet.name }}</span>
-          
-          {% if post.user == request.user %}
-          <form class="d-inline-block" action={% url 'posts:delete' post.id %} method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">삭제</button>
+          {% if post.pet.id == pet.id %}
+            <a onclick="onDeletePost({{post.id}})">삭제</a>
           </form>
           <a href={% url 'posts:update' post.id %} class="btn btn-success">수정</a>
           {% endif %}
@@ -32,21 +41,27 @@
         
         <hr style="border: solid 3px gray">
         <!--좋아요 버튼-->
-        <div class="card-body">
-          <a href="{% url 'posts:like' post.id %}">
-            <!--해당 유저가 like를 했으면 -->
-            {% if user in post.like_users.all %}
-              <i class="fas fa-heart"></i>
-            <!--아니면-->
-            {% else %}
-              <i class="far fa-heart"></i>
-            {% endif %}
-          </a>
-          <p class="card-text">
-            {{ post.like_users.count }}명이 좋아합니다.
-          </p>
-          <hr>
+        <div class="like-container">
+        {% if user.is_authenticated %}
+        <a class="material-icons mdl-badge mdl-badge--overlap"
+          data-badge="{{ post.like_users.count }}"
+          onclick="onClickLikeButton({{post.id}})"
+          id="{{post.id}}-like-button"
+        >
+          {% if user in post.like_users.all %}
+          favorite
+          {% else %}
+          favorite_border
+          {% endif %}
+        </a>
+        {% else %}
+        <div class="material-icons mdl-badge mdl-badge--overlap" 
+          data-badge="{{ post.like_users.count }}">
+          favorite
         </div>
+        {% endif %}
+      </div>
+    </div>
         <div class="card-body">  
           <!--Comment에 대한 modelform 작성-->
           <form method="POST" action="{% url 'posts:comment_create' post.id%}" class="d-inline">
@@ -72,9 +87,9 @@
     {% endfor %}
   </div>
   <div class="myfollowing">
-         {% for post in post_rank%}
-        <div> {{ forloop.counter }} {{post.image.url}} </div>
-        <p>{{ post.pet.name}} </p>
+      {% for pet in following_pets%}
+        <p>{{ pet.name}} </p>
+        <div> {{ forloop.counter }} {{image.url}} </div>
       {% endfor %}
-    </div>
+  </div>
 {% endblock %}
