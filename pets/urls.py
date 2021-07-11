@@ -8,4 +8,3 @@ urlpatterns = [
     path('<int:id>/deletepet/', views.deletepet, name='deletepet'),
     path('<int:id>/updatepet/', views.updatepet, name='updatepet'),
 ]
-

@@ -16,9 +16,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 from petPosts import views
+from pets import views
+from accounts import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),   
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', accounts.views.signup, name='signup'),
+    path('pets/', include('pets.urls')),
     path('', views.index, name='index'),
-
 ]

@@ -1,0 +1,15 @@
+<h2> My info! </h2>
+<div>
+    <p> email : {{profile.email}} </p>
+    <p> introduction : {{profile.introduction}} </p>
+</div>
+
+<h2> My pets! </h2>
+<div>
+    {% for pet in pets %}
+    <p>{{pet.name}}</p>
+    <p>{{pet.introduction}}</p>
+    <p>{{pet.image}}</p>
+    {% endfor %}
+</div>
+    

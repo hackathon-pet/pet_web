@@ -25,6 +25,7 @@ class Pet(models.Model):
 
   def __str__(self):     
     return f'id={self.id}, name={self.name}'
+
 class Follow(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   pet = models.ForeignKey(Pet, on_delete=models.CASCADE)

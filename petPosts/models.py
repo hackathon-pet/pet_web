@@ -42,3 +42,4 @@ class CommentLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
+
