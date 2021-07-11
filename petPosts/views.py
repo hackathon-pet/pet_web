@@ -17,7 +17,7 @@ def index(request):
                 sum_of_like+=Count(post.like_users)
             pets_by_ranking.insert([pet, pet.name, sum_of_like, pet.image])
         pets_by_ranking.sort(key=lambda x: x[2])
- 
+        
         if request.user.is_authenticated:
             feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
             following_pet=request.user.following_pets.all()
