@@ -8,7 +8,7 @@
   <img src="{{pet.image.url}}" width="50"><br>
   <p>펫 종류</p>
   <p style="width: 70%;">{{ pet.introduction }}</p>
-  {% if request.user == pet.author %}
+  {% if request.user == pet.owner %}
     <a href="{% url 'pets:update' id=post.id %}">수정</a>
     <a href="{% url 'pets:delete' id=post.id %}">삭제</a>
   {% endif %}

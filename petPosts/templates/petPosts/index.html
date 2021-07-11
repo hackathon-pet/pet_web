@@ -15,9 +15,8 @@
 {% block content %}
 <script src="{% static 'petPosts/js/index2.js' %}"></script>
   <div class="ranking">
-      {% for pet in pets_by_ranking%}
-        <p>{{ pet[0].name}} </p>
-        <div> {{ forloop.counter }} {{pet[0].image.url}} </div>
+      {% for pet in pet_rank%}
+        <p> {{pet}}</p>
       {% endfor %}
   </div>
   <div class="row justify-content-center">
