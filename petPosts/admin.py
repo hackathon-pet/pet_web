@@ -8,3 +8,4 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, ]
 
 admin.site.register(Post, PostAdmin)
+

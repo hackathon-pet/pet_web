@@ -43,6 +43,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sass_processor',
-    'petPosts',
-    'accounts',
-    'pets',
+    'bootstrap4',
+    'petPosts.apps.PetpostsConfig',
+    'accounts.apps.AccountsConfig',
+    'pets.apps.PetsConfig',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -143,5 +150,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SASS_PROCESSOR_ENABLED =  True
 SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'petPosts', 'static')
 
-LOGIN_REDIRECT_URL = ""
+LOGIN_REDIRECT_URL = "/posts/" 
+LOGOUT_REDIRECT_URL = "/posts/" #index 페이지로 돌아가야 한다.
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+ACCOUNT_LOGOUT_ON_GET = True

@@ -9,31 +9,17 @@ from django.http import JsonResponse
 def index(request):
     if request.method == 'GET': 
         posts = Post.objects.all().order_by('-created_at')
-        colleges = Profile.objects.exclude(college="").values('college').annotate(count=Count('college')).order_by('count')
-        users_with_same_college = None
-        users_with_same_major = None
-        
-        if request.user.is_authenticated:
-            if (request.user.profile.college != ""):
-                users_with_same_college = User.objects.filter(profile__college=request.user.profile.college).exclude(id=request.user.id)
-            if (request.user.profile.major != ""):
-                users_with_same_major = User.objects.filter(profile__major=request.user.profile.major).exclude(id=request.user.id)
-            
         return render(
             request, 
             'petPosts/index.html', 
             {
                 'posts': posts, 
-                'colleges': colleges, 
-                'users_with_same_college': users_with_same_college, 
-                'users_with_same_major': users_with_same_major,
             }
         )
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content, author=request.user)
-        post.tags.set(request.POST.getlist('tags'))
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
@@ -41,6 +27,21 @@ def index(request):
             photo.save()
         return redirect('petPosts:index') 
 
+def ranking(request):
+    posts_by_ranking=Post.objects.annotate(count=Count('like_users')).order_by('count')
+    return render (request, 'posts/index.html', {'post_rank':posts_by_ranking})
+
+def followinglist(request):
+    followings = request.user.followings.all()
+def list(request):
+    
+    my_posts = request.user.post_set.all()
+    # 내가 팔로잉 하는 사람들
+    followings = request.user.following_pets.all()
+    #내 계정이 팔로우하고 있는 pet들의 post or 내 포스팅
+    posts = Post.objects.filter(Q(pet__in=request.user.profile.following_pets.all())|Q(pet=request.user.profile.pet_set)).order_by('-id')
+    comment_form = CommentForm()
+    return render(request, 'posts/index.html', {'posts':posts, 'comment_form':comment_form})
 
 def new(request):
     return render(request, 'petPosts/new.html')
@@ -55,7 +56,7 @@ def delete(request, id):
     post = Post.objects.get(id=id)
     post.delete() 
     if request.method == 'DELETE' : 
-        return JsonResponse({'postLikeCount': request.user.like_posts.count()});
+        return JsonResponse({'postLikeCount': request.user.like_posts.count()})
     
     return redirect('petPosts:index') 
 

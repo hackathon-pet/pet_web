@@ -2,15 +2,27 @@
 
 {% block content %}
   <h1>new pet</h1>
-  <form action="{% url 'accounts:myinfo' %}" method="POST" enctype="multipart/form-data">
+  <form action="{% url 'pets:newpet' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>펫 종류 선택</p>
-    {% endfor %}
-    <p>이름</p>
-    <input name="name" /> <br />
+    <div class="form-group">
+      <label>Pet Category</label>
+        <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+          {% for x,y in form.fields.category.choices %}
+            <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
+          {% endfor %}
+        </select>
+    </div>
+    <p>펫 이름</p>
+    <input name="name">
+    <br>
+    <br>
+    <p>펫 사진</p>
     <input type="file" name="image">
-    <p>소개</p>
+    <br>
+    <br>
+    <p>펫 소개</p>
     <textarea name="introduction" rows="30" cols="50"></textarea> <br />
     <input type="submit" value="submit" />
+    <br>
   </form>
 {% endblock content %}
