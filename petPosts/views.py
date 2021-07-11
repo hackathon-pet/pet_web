@@ -33,11 +33,13 @@ def index(request):
                 }
             )
         else:
+            feed=Post.objects.all().order_by('-created_at')
             return render(
                 request, 
                 'petPosts/index.html', 
                 {
-                    'pet_rank':pets_by_ranking
+                    'pet_rank':pets_by_ranking,
+                    'feed': feed
                 }
             )
     elif request.method == 'POST': 

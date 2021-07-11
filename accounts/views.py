@@ -19,8 +19,6 @@ def myinfo(request):
   if request.method == 'GET':
     profile = Profile.objects.get(user=request.user)
     pets = Pet.objects.filter(owner=request.user.profile)
-
-
   return render(request, 'accounts/myinfo.html', {'pets':pets, 'profile':profile })      
 
 def editmyinfo(request):

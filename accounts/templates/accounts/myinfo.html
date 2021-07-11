@@ -11,7 +11,7 @@
     <p>{{pet.name}}</p>
     <p>{{pet.get_category_display}}</p>
     <p>{{pet.introduction}}</p>
-    <p>{{pet.image}}</p>
+    <img src="{{ pet.image.url }}"><br>
     </a>
     {% endfor %}
     <a href="{% url 'pets:newpet' %}">
@@ -23,4 +23,3 @@
     Back to Home
     </a>
 </div>
-    
