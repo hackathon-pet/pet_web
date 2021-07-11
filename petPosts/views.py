@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Post, Photo, Comment, Like, CommentLike
+from pets.models import Pet
 from accounts.models import Profile
 from django.db.models import Count, Sum
 from django.contrib.auth.models import User
@@ -41,7 +42,7 @@ def index(request):
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(title=title, content=content, author=request.user)
+        post = Post.objects.create(title=title, content=content)
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
@@ -81,7 +82,7 @@ def update(request, id):
 class CommentView:
     def create(request, id):
         content = request.POST['content']
-        comment = Comment.objects.create(post_id=id, content=content, author=request.user)
+        comment = Comment.objects.create(post_id=id, content=content)
         current_time = comment.created_at.strftime('%Y년 %m월 %d일 %-H:%M')
 
         post = Post.objects.get(id=id)
@@ -90,7 +91,6 @@ class CommentView:
             'commentCount': post.comment_set.count(),
             'commentLikeCount': comment.like_users.count(), 
             'createdTime': current_time,
-            'author': request.user.username 
         })
         
     def delete(request, id, cid):
