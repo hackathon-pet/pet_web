@@ -32,7 +32,7 @@ class Pet(models.Model):
                             'quality':90,
                           }
                         )
-  follow_users = models.ManyToManyField(User, blank=True, related_name='follow_pets', through='Follow')
+  follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
 
   def __str__(self):     
     return f'id={self.id}, name={self.name}'
