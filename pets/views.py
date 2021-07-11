@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Pet, PetForm, Follow
 from django.http import JsonResponse
 
-def newpet(request, id):
+def newpet(request):
   if request.method == 'GET': 
     form = PetForm()
     return render(request, 'pets/newpet.html', {'form': form})
@@ -32,8 +32,4 @@ class FollowView:
       pet.follow_users.get(id=request.user.id).delete()
     else:
       Follow.objects.create(user=request.user, pet=pet)
-    return JsonResponse({
-        'followStatus': follow_status.count(), 
-        'petFollowCount': pet.follow_set.count(), 
-        'userFollowCount': request.user.following_pet.count()
-      })
+    return redirect ('/pets')
