@@ -43,6 +43,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sass_processor',
-    'petPosts',
-    'accounts',
-    'pets',
+    'bootstrap4',
+    'petPosts.apps.PetpostsConfig',
+    'accounts.apps.AccountsConfig',
+    'pets.apps.PetsConfig',
 ]
 
 MIDDLEWARE = [

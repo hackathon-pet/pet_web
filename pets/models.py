@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User 
 from accounts.models import Profile
 
-# Create your models here.
 class Pet(models.Model):
   owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
   name = models.CharField(max_length=20, blank=True)

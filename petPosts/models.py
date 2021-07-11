@@ -2,11 +2,13 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from django.contrib.auth.models import User
+from pets.models import Pet
 
 class Post(models.Model):
     title = models.CharField(max_length=256)
     content = models.TextField()
-    author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
+    image = models.ImageField(blank=True, null=True)
+    pet = models.ForeignKey(Pet, null=True, on_delete= models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
     like_users = models.ManyToManyField(User, blank=True, related_name='like_posts', through='Like')

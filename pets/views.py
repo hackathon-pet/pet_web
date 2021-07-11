@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import Pet, Follow
+
 def new(request):
     return render(request, 'pets/new.html')
-
 
 def show(request):
     if request.method == 'GET': 

@@ -20,11 +20,16 @@ from django.conf.urls import include
 from petPosts import views
 from pets import views
 from accounts import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),   
+    path('admin/', admin.site.urls),
+    path('', petPosts.views.index, name='index'),
+    path('posts/', include('petPosts.urls')),
+    path('pets/', include('pets.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', accounts.views.signup, name='signup'),
-    path('pets/', include('pets.urls')),
-    path('', views.index, name='index'),
-]
+    path('accounts/myinfo/', accounts.views.myinfo, name='myinfo'),
+    path('social_accounts/', include('allauth.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
