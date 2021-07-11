@@ -44,7 +44,6 @@ def index(request):
             photo.save()
         return redirect('petPosts:index') 
 
-
 def new(request):
     return render(request, 'petPosts/new.html')
 
