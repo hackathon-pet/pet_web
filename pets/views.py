@@ -21,4 +21,3 @@ def deletepet(request):
   pass
 def updatepet(request):
   pass
-

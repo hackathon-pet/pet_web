@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'petPosts.apps.PetpostsConfig',
     'accounts.apps.AccountsConfig',
     'pets.apps.PetsConfig',
-
+  
     #allauth
     'allauth',
     'allauth.account',
@@ -150,6 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SASS_PROCESSOR_ENABLED =  True
 SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'petPosts', 'static')
 
+
 LOGIN_REDIRECT_URL = "/posts/" 
 LOGOUT_REDIRECT_URL = "/posts/" #index 페이지로 돌아가야 한다.
 
@@ -161,3 +162,4 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_LOGOUT_ON_GET = True
+

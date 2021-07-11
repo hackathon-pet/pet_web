@@ -18,7 +18,6 @@ class Pet(models.Model):
       ('p7', '파충류'),
       ('p8', '거미/전갈')
   )
-
   category = models.CharField(max_length=2, choices=PET_CHOICES, blank=True, null=True, verbose_name="category")
   #age?
   introduction = models.CharField(max_length=100, blank=True)
