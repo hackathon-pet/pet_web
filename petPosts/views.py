@@ -28,7 +28,7 @@ def index(request):
         return redirect('petPosts:index') 
 
 def ranking(request):
-    posts_by_ranking=Posts.objects.annotate(count=Count('like_users')).order_by('count')
+    posts_by_ranking=Post.objects.annotate(count=Count('like_users')).order_by('count')
     return render (request, 'posts/index.html', {'post_rank':posts_by_ranking})
 
 def followinglist(request):

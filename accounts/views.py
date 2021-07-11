@@ -5,11 +5,11 @@ from django.shortcuts import redirect
 from .models import Profile
 from pets.models import Pet, Follow
 
-def signup(request):
+def signup(request,):
   if request.method == 'POST':
       if request.POST['password1'] == request.POST['password2']:
           user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
-          auth.login(request, user)
+          auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
           Profile.objects.filter(user=request.user).update(email=request.POST['email'], introduction=request.POST['introduction'])
           return redirect('/posts')
 
@@ -25,7 +25,7 @@ def myinfo(request):
 
 def editmyinfo(request):
     if request.method == 'POST':
-        Profile.objects.filter(user=request.user).update(college=request.POST['college'], major=request.POST['major'])
+        Profile.objects.filter(user=request.user).update(email=request.POST['email'], introduction=request.POST['introduction'])
         return redirect('/posts')
 
     return render(request, 'accounts/editmyinfo.html')
