@@ -9,9 +9,10 @@ def newpet(request):
   elif request.method == 'POST': 
     name = request.POST['name']
     category = request.POST['category']
-    image = request.POST['image']
+    image = request.FILES['image']
     introduction = request.POST['introduction']
-    pet = Pet.objects.create(name=name, image=image, introduction=introduction, owner=request.user, category = category)
+    owner=request.user.profile
+    pet = Pet.objects.create(name=name, image=image, introduction=introduction, owner=owner, category = category)
     return render(request, 'accounts/myinfo.html', {'pet':pet})
 
 def showpet(request):
