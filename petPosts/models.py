@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from django.contrib.auth.models import User
-from tags.models import Tag
 
 class Post(models.Model):
     title = models.CharField(max_length=256)
@@ -19,6 +18,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class Photo(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
 class Comment(models.Model):
     content = models.TextField()

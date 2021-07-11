@@ -1,16 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Post, Comment, Like, CommentLike
+from .models import Post, Photo, Comment, Like, CommentLike
 from accounts.models import Profile
 from django.db.models import Count
 from django.contrib.auth.models import User
-from tags.models import Tag
 from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
         posts = Post.objects.all().order_by('-created_at')
-        tags = Tag.objects.all()
         colleges = Profile.objects.exclude(college="").values('college').annotate(count=Count('college')).order_by('count')
         users_with_same_college = None
         users_with_same_major = None
@@ -29,27 +27,28 @@ def index(request):
                 'colleges': colleges, 
                 'users_with_same_college': users_with_same_college, 
                 'users_with_same_major': users_with_same_major,
-                'tags': tags
             }
         )
-    
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content, author=request.user)
         post.tags.set(request.POST.getlist('tags'))
+        for img in request.FILES.getlist('imgs'):
+            photo = Photo()
+            photo.post = post
+            photo.image = img
+            photo.save()
         return redirect('petPosts:index') 
 
 
 def new(request):
-    tags = Tag.objects.all()
-    return render(request, 'petPosts/new.html', {'tags': tags})
+    return render(request, 'petPosts/new.html')
 
 
 def show(request, id):
     post = Post.objects.get(id=id)
-    tags = Tag.objects.filter(posts=post)
-    return render(request, 'petPosts/show.html', {'post':post, 'tags': tags})
+    return render(request, 'petPosts/show.html', {'post':post})
 
 
 def delete(request, id):
@@ -63,8 +62,7 @@ def delete(request, id):
 def update(request, id):
     if request.method == 'GET':
         post = Post.objects.get(id=id)
-        tags = Tag.objects.all()
-        return render(request, 'petPosts/update.html', {'post':post, 'tags': tags})
+        return render(request, 'petPosts/update.html', {'post':post})
     
     elif request.method == 'POST':
         post = Post.objects.filter(id=id)
