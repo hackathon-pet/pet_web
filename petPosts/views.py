@@ -14,11 +14,11 @@ def index(request):
         pets_by_ranking=[]
         for pet in Pet.objects.all():
             sum_of_like=0
-            for post in pet.post_set:
+            for post in pet.post_set.all():
                 sum_of_like+=Count(post.like_users)
-            pets_by_ranking.insert([pet, pet.name, sum_of_like, pet.image])
+            pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
         pets_by_ranking.sort(key=lambda x: x[2])
- 
+        
         if request.user.is_authenticated:
             feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
             following_pet=request.user.following_pets.all()
@@ -32,11 +32,13 @@ def index(request):
                 }
             )
         else:
+            feed=Post.objects.all().order_by('-created_at')
             return render(
                 request, 
                 'petPosts/index.html', 
                 {
-                    'pet_rank':pets_by_ranking
+                    'pet_rank':pets_by_ranking,
+                    'feed': feed
                 }
             )
     elif request.method == 'POST': 
