@@ -14,9 +14,9 @@ def index(request):
         pets_by_ranking=[]
         for pet in Pet.objects.all():
             sum_of_like=0
-            for post in pet.post_set:
+            for post in pet.post_set.all():
                 sum_of_like+=Count(post.like_users)
-            pets_by_ranking.insert([pet, pet.name, sum_of_like, pet.image])
+            pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
         pets_by_ranking.sort(key=lambda x: x[2])
         
         if request.user.is_authenticated:
