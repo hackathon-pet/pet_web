@@ -15,9 +15,11 @@
 {% block content %}
 <script src="{% static 'petPosts/js/index2.js' %}"></script>
   <div class="ranking">
-      {% for pet in pets_by_ranking%}
-        <p>{{ pet[0].name}} </p>
-        <div> {{ forloop.counter }} {{pet[0].image.url}} </div>
+      {% for pet in pet_rank%}
+        <p> {{ forloop.counter }}등 </p>
+        <p> 펫이름 </p>
+        <p> {{pet.1}}</p>
+         <img src = "{{pet.3.url}}">
       {% endfor %}
   </div>
   <div class="row justify-content-center">
@@ -93,3 +95,4 @@
       {% endfor %}
   </div>
 {% endblock %}
+

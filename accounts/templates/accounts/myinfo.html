@@ -9,12 +9,18 @@
     {% for pet in pets %}
     <a href="{% url 'pets:showpet' pet.id %}">
     <p>{{pet.name}}</p>
+    <p>{{pet.get_category_display}}</p>
     <p>{{pet.introduction}}</p>
     <p>{{pet.image}}</p>
     </a>
     {% endfor %}
     <a href="{% url 'pets:newpet' %}">
     Add your lovely pet!
+    </a>
+    <br>
+    <br>
+    <a href="{% url 'petPosts:index' %}">
+    Back to Home
     </a>
 </div>
     

@@ -9,7 +9,9 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('pets', '0005_alter_pet_category'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('pets', '0005_alter_pet_category'),
     ]
 
     operations = [
@@ -35,10 +37,19 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=256)),
                 ('content', models.TextField()),
+                ('image', models.ImageField(blank=True, null=True, upload_to='')),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(blank=True, null=True)),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('like_users', models.ManyToManyField(blank=True, related_name='like_posts', through='petPosts.Like', to=settings.AUTH_USER_MODEL)),
+                ('pet', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='pets.pet')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Photo',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('image', models.ImageField(blank=True, null=True, upload_to='images/')),
+                ('post', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='petPosts.post')),
             ],
         ),
         migrations.AddField(
