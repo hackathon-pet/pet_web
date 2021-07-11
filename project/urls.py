@@ -17,9 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from petPosts import views
-from pets import views
-from accounts import views
+import petPosts.views
+import pets.views
+import accounts.views
 from django.conf import settings
 from django.conf.urls.static import static
 
