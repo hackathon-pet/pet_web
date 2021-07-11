@@ -11,7 +11,7 @@
     <img src="{{photo.image.url}}" width="50"><br>
   {% endfor %}
   <p style="width: 70%;">{{ post.content }}</p>
-  {% if request.user == post.author %}
+  {% if request.user == post.pet.owner%}
   <a href="{% url 'petPosts:update' id=post.id %}">수정</a>
   <a href="{% url 'petPosts:delete' id=post.id %}">삭제</a>
   {% endif %}

@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import Post, Photo, Comment, Like, CommentLike
+from pets.models import Pet
 from accounts.models import Profile
 from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django import forms
 
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
         pet_and_rank={}
-        for pet in Pet.objects.all:
+        for pet in Pet.objects.all():
             pet_and_rank.add({pet, pet.post_set})
         pets_by_ranking={}
         for each in pet_and_rank:
@@ -19,9 +21,8 @@ def index(request):
                 sumlike+=Count(post.like_users)
             pets_by_ranking.add({pet, sumlike})
         sorted(pets_by_ranking.items(), reverse=True)
-        current_pet=Pet.objects.filter(id=pet.id)
-        feed = Post.objects.filter(pet__in=current_pet.following_pets.all()).order_by('-created_at')
-        following_pet=current_pet.following_pets.all()
+        feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
+        following_pet=request.user.following_pets.all()
         comment_form = CommentForm()
         return render(
             request, 
@@ -30,13 +31,13 @@ def index(request):
                 'pet_rank':pets_by_ranking,
                 'feed': feed,
                 'comment_form':comment_form,
-                'following_pets':following_pets
+                'following_pets':following_pet
             }
         )
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(title=title, content=content, author=request.user)
+        post = Post.objects.create(title=title, content=content)
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
@@ -76,7 +77,7 @@ def update(request, id):
 class CommentView:
     def create(request, id):
         content = request.POST['content']
-        comment = Comment.objects.create(post_id=id, content=content, author=request.user)
+        comment = Comment.objects.create(post_id=id, content=content)
         current_time = comment.created_at.strftime('%Y년 %m월 %d일 %-H:%M')
 
         post = Post.objects.get(id=id)
@@ -85,7 +86,6 @@ class CommentView:
             'commentCount': post.comment_set.count(),
             'commentLikeCount': comment.like_users.count(), 
             'createdTime': current_time,
-            'author': request.user.username 
         })
         
     def delete(request, id, cid):
