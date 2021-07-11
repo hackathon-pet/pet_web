@@ -4,35 +4,40 @@ from accounts.models import Profile
 from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from pets.models import Pet
+from django import forms
 
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
-        pet_and_rank={}
-        for pet in Pet.objects.all:
-            pet_and_rank.add({pet, pet.post_set})
-        pets_by_ranking={}
-        for each in pet_and_rank:
-            posts=each[1]
-            sumlike=0
-            for post in posts:
-                sumlike+=Count(post.like_users)
-            pets_by_ranking.add({pet, sumlike})
-        sorted(pets_by_ranking.items(), reverse=True)
-        current_pet=Pet.objects.filter(id=pet.id)
-        feed = Post.objects.filter(pet__in=current_pet.following_pets.all()).order_by('-created_at')
-        following_pet=current_pet.following_pets.all()
-        comment_form = CommentForm()
-        return render(
-            request, 
-            'petPosts/index.html', 
-            {
-                'pet_rank':pets_by_ranking,
-                'feed': feed,
-                'comment_form':comment_form,
-                'following_pets':following_pets
-            }
-        )
+        pets_by_ranking=[]
+        for pet in Pet.objects.all():
+            sum_of_like=0
+            for post in pet.post_set:
+                sum_of_like+=Count(post.like_users)
+            pets_by_ranking.insert([pet, pet.name, sum_of_like, pet.image])
+        pets_by_ranking.sort(key=lambda x: x[2])
+ 
+        if request.user.is_authenticated:
+            feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
+            following_pet=request.user.following_pets.all()
+            return render(
+                request, 
+                'petPosts/index.html', 
+                {
+                    'pet_rank':pets_by_ranking,
+                    'feed': feed,
+                    'following_pets':following_pet
+                }
+            )
+        else:
+            return render(
+                request, 
+                'petPosts/index.html', 
+                {
+                    'pet_rank':pets_by_ranking
+                }
+            )
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
@@ -43,7 +48,6 @@ def index(request):
             photo.image = img
             photo.save()
         return redirect('petPosts:index') 
-
 
 def new(request):
     return render(request, 'petPosts/new.html')

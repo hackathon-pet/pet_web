@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <h1>update post</h1>
   <form action="{% url 'petPosts:update' id=post.id %}" method="POST">
     {% csrf_token %}
     <p>태그 선택</p>
@@ -10,6 +11,10 @@
     {% endfor %}
     <p>title</p>
     <input name="title" value="{{post.title}}"/> <br />
+    {% for photo in post.photo_set.all%}
+      <img src="{{photo.image.url}}" width="50"><br>
+    {% endfor %}
+    <input type="file" name="imgs" multiple>
     <p>content</p>
     <textarea name="content" rows="30" cols="50" wrap="hard">{{ post.content }}</textarea> <br />
     <input type="submit" value="submit" />
