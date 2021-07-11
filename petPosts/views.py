@@ -1,38 +1,45 @@
 from django.shortcuts import render, redirect
 from .models import Post, Photo, Comment, Like, CommentLike
+from pets.models import Pet
 from accounts.models import Profile
 from pets.models import Pet
 from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from pets.models import Pet
+from django import forms
 
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
-        pet_and_rank={}
+        pets_by_ranking=[]
         for pet in Pet.objects.all():
-            pet_and_rank.add({pet, pet.post_set})
-        pets_by_ranking={}
-        for each in pet_and_rank:
-            posts=each[1]
-            sumlike=0
-            for post in posts:
-                sumlike+=Count(post.like_users)
-            pets_by_ranking.add({pet, sumlike})
-        sorted(pets_by_ranking.items(), reverse=True)
-        feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
-        following_pet=request.user.following_pets.all()
-        comment_form = CommentForm()
-        return render(
-            request, 
-            'petPosts/index.html', 
-            {
-                'pet_rank':pets_by_ranking,
-                'feed': feed,
-                'comment_form':comment_form,
-                'following_pets':following_pets
-            }
-        )
+            sum_of_like=0
+            for post in pet.post_set.all():
+                sum_of_like+=Count(post.like_users)
+            pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
+        pets_by_ranking.sort(key=lambda x: x[2])
+
+        if request.user.is_authenticated:
+            feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
+            following_pet=request.user.following_pets.all()
+            return render(
+                request, 
+                'petPosts/index.html', 
+                {
+                    'pet_rank':pets_by_ranking,
+                    'feed': feed,
+                    'following_pets':following_pet
+                }
+            )
+        else:
+            return render(
+                request, 
+                'petPosts/index.html', 
+                {
+                    'pet_rank':pets_by_ranking
+                }
+            )
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
@@ -76,7 +83,7 @@ def update(request, id):
 class CommentView:
     def create(request, id):
         content = request.POST['content']
-        comment = Comment.objects.create(post_id=id, content=content, author=request.user)
+        comment = Comment.objects.create(post_id=id, content=content)
         current_time = comment.created_at.strftime('%Y년 %m월 %d일 %-H:%M')
 
         post = Post.objects.get(id=id)
@@ -85,7 +92,6 @@ class CommentView:
             'commentCount': post.comment_set.count(),
             'commentLikeCount': comment.like_users.count(), 
             'createdTime': current_time,
-            'author': request.user.username 
         })
         
     def delete(request, id, cid):
