@@ -16,7 +16,7 @@ class Pet(models.Model):
       ('p7', '파충류'),
       ('p8', '거미/전갈')
   )
-  category = models.CharField(max_length=2, choices=PET_CHOICES)
+  category = models.CharField(max_length=2, null=True, choices=PET_CHOICES)
   #age?
   introduction = models.CharField(max_length=100, blank=True)
   image = models.ImageField(upload_to='images/',blank=True, null=True)
