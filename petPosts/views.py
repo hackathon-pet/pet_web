@@ -46,12 +46,13 @@ def index(request):
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content)
+        id = post.pet.id
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
             photo.image = img
             photo.save()
-        return redirect('petPosts:index') 
+        return render(request, 'pets/showpet.html', {'post':post, 'id':id})
 
 def new(request):
     return render(request, 'petPosts/new.html')
