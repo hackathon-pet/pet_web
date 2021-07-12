@@ -34,4 +34,3 @@ class FollowView:
     else:
       Follow.objects.create(user=request.user, pet=pet)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
