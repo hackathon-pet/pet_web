@@ -8,18 +8,19 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from pets.models import Pet
 from django import forms
-
+from collections import defaultdict
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
         pets_by_ranking=[]
+        categories=defaultdict()
         for pet in Pet.objects.all():
             sum_of_like=0
+            categories[pet.get_category_display()]+=pet.id
             for post in pet.post_set.all():
                 sum_of_like+=Count(post.like_users)
             pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
         pets_by_ranking.sort(key=lambda x: x[2])
-
         if request.user.is_authenticated:
             feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
             following_pet=request.user.following_pets.all()
@@ -29,7 +30,8 @@ def index(request):
                 {
                     'pet_rank':pets_by_ranking,
                     'feed': feed,
-                    'following_pets':following_pet
+                    'following_pets':following_pet,
+                    'categories': categories
                 }
             )
         else:
@@ -39,7 +41,8 @@ def index(request):
                 'petPosts/index.html', 
                 {
                     'pet_rank':pets_by_ranking,
-                    'feed': feed
+                    'feed': feed,
+                    'categories': categories
                 }
             )
     elif request.method == 'POST': 
