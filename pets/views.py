@@ -29,7 +29,8 @@ def deletepet(request, id):
 def updatepet(request, id):
   if request.method == 'GET':
     pet = Pet.objects.get(id=id)
-    return render(request, 'pets/updatepet.html', {'pet':pet})
+    form = PetForm()
+    return render(request, 'pets/updatepet.html', {'pet':pet, 'form': form})
   elif request.method == 'POST':
     pet = Pet.objects.filter(id=id)
     name = request.POST['name']

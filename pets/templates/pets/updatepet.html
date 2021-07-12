@@ -2,9 +2,17 @@
 
 {% block content %}
     <h1>update pet</h1>
-  <form action="{% url 'pets:update' id=pet.id %}" method="POST" enctype="multipart/form-data">
+  <form action="{% url 'pets:updatepet' id=pet.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <p>펫 종류 선택</p>
+    <div class="form-group">
+      <label>Pet Category</label>
+        <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+          {% for x,y in form.fields.category.choices %}
+            <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
+          {% endfor %}
+        </select>
+    </div>
     <p>이름</p>
     <input name="name" value={{pet.name}}/> <br/>
     <input type="file" name="image" value={{pet.image}}/>

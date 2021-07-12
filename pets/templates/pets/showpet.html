@@ -11,8 +11,11 @@
   <p style="width: 70%;">{{ pet.introduction }}</p>
 </div>
 
-  <a href="{% url 'pets:updatepet' id=pet.id %}">수정</a>
-  <a href="{% url 'pets:deletepet' id=pet.id %}">삭제</a>
+{% if request.user.profile == pet.owner %}
+<a href="{% url 'petPosts:new' %}"> 포스트 작성 </a>
+<a href="{% url 'pets:updatepet' id=pet.id %}">수정</a>
+<a href="{% url 'pets:deletepet' id=pet.id %}">삭제</a>
+{% endif %}
 
 {{ pet.follow_users.count }} 
 {% if user.is_authenticated %}

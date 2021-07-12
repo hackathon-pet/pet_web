@@ -18,11 +18,11 @@
 <div>
   {% for pet in pets %}
     <a href="{% url 'pets:showpet' pet.id %}">
-      <p>{{pet.name}}</p>
-    </a>
+    <p>{{pet.name}}</p>
     <p>{{pet.get_category_display}}</p>
     <p>{{pet.introduction}}</p>
     <img src="{{ pet.image.url }}"><br>
+    </a>
   {% endfor %}
   <a href="{% url 'pets:newpet' %}">
     Add your lovely pet!
