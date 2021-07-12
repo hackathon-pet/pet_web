@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'petPosts.apps.PetpostsConfig',
     'accounts.apps.AccountsConfig',
     'pets.apps.PetsConfig',
+    'imagekit',
 
     #allauth
     'allauth',
