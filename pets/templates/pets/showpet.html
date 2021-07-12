@@ -5,7 +5,7 @@
 {% block content %}
 <div>
   <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</h1>
-  <img src="{{pet.image.url}}" width="50">
+  <img src="{{pet.image.url}}" width="500">
   <p>펫 종류</p>
   <p style="width: 70%;">{{ pet.introduction }}</p>
   {% if request.user == pet.owner %}
