@@ -18,7 +18,7 @@
       {% for pet in pet_rank%}
         <p> {{ forloop.counter }}등 </p>
         <p> 펫이름 </p>
-        <p> <a href={% url 'pets:showpet' pet.id %}>{{pet.1}}</a></p>
+        <p><a href={% url 'pets:showpet' pet.0.id %} > {{pet.1}}</a></p>
          <img src = "{{pet.3.url}}">
       {% endfor %}
   </div>
