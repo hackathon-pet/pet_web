@@ -6,7 +6,6 @@
 <div>
   <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</h1>
   <img src="{{pet.image.url}}" width="500">
-  <p>펫 종류</p>
   <p>{{pet.get_category_display}}</p>
   <p style="width: 70%;">{{ pet.introduction }}</p>
 </div>
@@ -24,3 +23,14 @@
   </a>
 {% endif %}
 {% endblock content %}
+
+# post_set을 불러오는 것에 있어서 기술적으로 조금 자신이 없음
+{% for post in pet.post_set.all %}
+<a href="{% url 'petPosts:show' id=post.id %}">
+  <p>제목: {{post.title}}<p>
+  <p>작성일: {{ post.created_at }}</p>
+  {% for photo in post.photo_set.all %}
+    <img src="{{photo.image.url}}" width="50"><br>
+  {% endfor %}
+</a>
+{% endfor %}

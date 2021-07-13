@@ -54,8 +54,13 @@ def index(request):
         return redirect('petPosts:index') 
 
 def new(request):
-    return render(request, 'petPosts/new.html')
+    #if request.method == 'GET':
+            #user가 누군지 알아서 그    user의 펫들을 선택할 수 있게 반영
 
+        return render(request, 'petPosts/index.html')
+    #elif request.method == 'POST':
+
+        #return redirect
 
 def show(request, id):
     post = Post.objects.get(id=id)
