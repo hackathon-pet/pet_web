@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>new post</h1>
-  <form action="{% url 'petPosts:index' %}" method="POST" enctype="multipart/form-data">
+ <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}의 새 포스트 작성</h1>
+  <form action="{% url 'petPosts:new' id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <p>태그 선택</p>
     {% for tag in tags %}
