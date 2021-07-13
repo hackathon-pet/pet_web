@@ -15,7 +15,7 @@
           {% endfor %}
         </select>
     </div>
-    <input type="file" name="image" value={{pet.image}}/>
+    <input type="file" name="image" value={{pet.image.url}}/>
     <p>소개</p>
     <textarea name="introduction" rows="30" cols="50" value={{pet.introduction}}></textarea> <br />
     <input type="submit" value="submit" />

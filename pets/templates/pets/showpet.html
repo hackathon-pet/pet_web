@@ -11,7 +11,7 @@
   <p style="width: 70%;">{{ pet.introduction }}</p>
 </div>
 {% if request.user.profile == pet.owner %}
-  <a href="{% url 'petPosts:new' %}">포스트 작성</a>
+  <a href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
   <a href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
   <a href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
 {% endif %}
@@ -25,7 +25,7 @@
 <p>{{ pet.name }}의 포스트</p>
 {% for post in posts %}
   <div style="border: 1px solid grey;">
-    <a href="/posts/{{ post.id }}/">
+    <a href="/petPosts/{{ post.id }}/">
     <h3>{{ post.title }}</h3>
     <p>{{ post.content }}</p>
     </a>
