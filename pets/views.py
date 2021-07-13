@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Pet, PetForm, Follow
+from petPosts.models import Post
+from django.db.models import Count
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 
@@ -18,12 +20,28 @@ def newpet(request):
 
 def showpet(request, id):
   pet = Pet.objects.get(id=id)
-  return render(request, 'pets/showpet.html', {'pet':pet})
+  posts = Post.objects.filter(pet=pet)
+  return render(request, 'pets/showpet.html', {'pet':pet, 'posts':posts})
 
-def deletepet(request):
-  pass
-def updatepet(request):
-  pass
+def deletepet(request, id):
+  pet = Pet.objects.get(id=id)
+  pet.delete()
+  return redirect('/accounts/myinfo')
+
+def updatepet(request, id):
+  if request.method == 'GET':
+    pet = Pet.objects.get(id=id)
+    form = PetForm()
+    return render(request, 'pets/updatepet.html', {'pet':pet, 'form': form})
+  elif request.method == 'POST':
+    pet = Pet.objects.filter(id=id)
+    name = request.POST['name']
+    category = request.POST['category']
+    image = request.FILES['image']
+    introduction = request.POST['introduction']
+    owner=request.user.profile
+    pet.update(name=name, image=image, introduction=introduction, owner=owner, category = category)
+    return redirect('pets:showpet', id=id)
 
 class FollowView:
   def create(request, id):

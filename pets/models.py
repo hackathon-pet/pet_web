@@ -26,11 +26,11 @@ class Pet(models.Model):
                           upload_to='images/', blank=True, null=True,
                           processors=[ # 어떤 가공을 할지 
                               Thumbnail(300, 300),
-                           ], 
+                          ], 
                           format='JPEG', # 이미지 포멧 (jpg, png)
                           options={  # 이미지 포멧 관련 옵션 
                             'quality':90,
-                          }
+                          },
                         )
   follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
 
@@ -43,8 +43,8 @@ class PetForm(forms.ModelForm):
         super(PetForm, self).__init__(*args, **kargs)
 
     class Meta:
-         model = Pet
-         fields = '__all__'
+      model = Pet
+      fields = '__all__'
 
 class Follow(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)

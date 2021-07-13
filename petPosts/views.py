@@ -14,6 +14,7 @@ from json import JSONEncoder
 # Create your views here.
 
 def index(request):
+
     if request.method == 'GET': 
         pets_by_ranking=[]
         categories={}
@@ -65,19 +66,25 @@ def index(request):
                 }
             )
 
+
+def new(request, id):
+    if request.method == 'GET':
+        pet = Pet.objects.get(id=id)
+        id = pet.id
+        return render(request, 'petPosts/new.html', {'pet':pet, 'id':id})
+
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content)
+        pet = Pet.objects.get(id=id)
+        id = pet.id
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
             photo.image = img
             photo.save()
-        return redirect(request, 'pets/showpet.html') 
-
-def new(request):
-    return render(request, 'petPosts/new.html')
+        return render(request, 'pets/showpet.html', {'post':post, 'pet':pet, 'id':id})
 
 
 def show(request, id):
