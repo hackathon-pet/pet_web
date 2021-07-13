@@ -13,13 +13,26 @@
 {% endblock js %}
 
 {% block content %}
-<script src="{% static 'petPosts/js/index2.js' %}"></script>
+<script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/index2.js' %}"></script>
+  <div class="category-top">
+    <a onclick="onClickCategory(0)"> 전체 </a>
+    {% for category in categories%}
+ 
+    <a onclick="onClickCategory({{forloop.counter}})"> {{category}}</a>
+    {% endfor %}
+  </div>
+  </div>
   <div class="ranking">
       {% for pet in pet_rank%}
+        <div class ="category">
+          {{pet.0.category}}
+        </div>
+        <div class="animal" id="{{pet.id}}-pet-rank">
         <p> {{ forloop.counter }}등 </p>
         <p> 펫이름 </p>
-        <p> {{pet.1}}</p>
+        <p><a href={% url 'pets:showpet' pet.0.id %} > {{pet.1}}</a></p>
          <img src = "{{pet.3.url}}">
+         </div>
       {% endfor %}
   </div>
   <div class="row justify-content-center">
@@ -27,7 +40,7 @@
      <div class="card mt-2 mr-2" style="width: 20rem;">
         <div class="card-header">
           <span>{{ post.pet.name }}</span>
-          {% if post.pet.owner == request.user %}
+          {% if post.pet.owner == request.user.profile %}
             <a onclick="onDeletePost({{post.id}})">삭제</a>
           </form>
           <a href={% url 'petPosts:update' post.id %} class="btn btn-success">수정</a>

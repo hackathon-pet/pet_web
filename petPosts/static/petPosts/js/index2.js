@@ -1,3 +1,4 @@
+
 const onSetPostLikeCount = async (likeCount) => {
     const postLikeCountOfUser = document.getElementById('user-like-count');
     postLikeCountOfUser.innerHTML = `내가 좋아하는 글 : ${likeCount}개 `;
@@ -45,3 +46,16 @@ const onSetPostLikeCount = async (likeCount) => {
       onSetPostLikeCount(response.data.postLikeCount);
     }
   }
+
+  const onClickCategory=async (category)=>{
+    const getAllPosts=document.getElementsByClassName('animal');
+    
+      for(var i in getAllPosts){
+        console.log(getAllPosts[i])
+      }
+    
+   
+    
+  }
+
+ 
