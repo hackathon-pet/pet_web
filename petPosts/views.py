@@ -9,16 +9,19 @@ from django.http import JsonResponse
 from pets.models import Pet
 from django import forms
 from collections import defaultdict
-
+import json
+from json import JSONEncoder
 # Create your views here.
+
 def index(request):
     if request.method == 'GET': 
         pets_by_ranking=[]
         categories={}
         form = PetForm()
-        
+        category=set()
         for x,y in form.fields['category'].choices:
             if x!='':
+                category.add(y)
                 categories[y]={}
                 category_pet=Pet.objects.filter(category=x)
                 pet_by_category=[]
@@ -61,6 +64,7 @@ def index(request):
                     'form': form
                 }
             )
+
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
