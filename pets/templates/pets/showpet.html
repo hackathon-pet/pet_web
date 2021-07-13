@@ -22,14 +22,15 @@
     Follow
   </a>
 {% endif %}
-{% endblock content %}
 
-{% for post in pet.post_set.all %}
+{% for post in posts %}
 <a href="{% url 'petPosts:show' id=post.id %}">
-  <p>제목: {{post.title}}<p>
+  <p>제목: {{post.title}}</p>
   <p>작성일: {{ post.created_at }}</p>
   {% for photo in post.photo_set.all %}
     <img src="{{photo.image.url}}" width="50"><br>
   {% endfor %}
 </a>
 {% endfor %}
+
+{% endblock content %}
