@@ -11,9 +11,9 @@
 </div>
 
 {% if request.user.profile == pet.owner %}
-<a href="{% url 'petPosts:new' %}"> 포스트 작성 </a>
-<a href="{% url 'pets:updatepet' id=pet.id %}">수정</a>
-<a href="{% url 'pets:deletepet' id=pet.id %}">삭제</a>
+  <a href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
+  <a href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
+  <a href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
 {% endif %}
 
 {{ pet.follow_users.count }} 
@@ -24,7 +24,6 @@
 {% endif %}
 {% endblock content %}
 
-# post_set을 불러오는 것에 있어서 기술적으로 조금 자신이 없음
 {% for post in pet.post_set.all %}
 <a href="{% url 'petPosts:show' id=post.id %}">
   <p>제목: {{post.title}}<p>

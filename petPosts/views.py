@@ -11,56 +11,54 @@ from django import forms
 
 # Create your views here.
 def index(request):
-    if request.method == 'GET': 
-        pets_by_ranking=[]
-        for pet in Pet.objects.all():
-            sum_of_like=0
-            for post in pet.post_set.all():
-                sum_of_like+=Count(post.like_users)
-            pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
-        pets_by_ranking.sort(key=lambda x: x[2])
+    pets_by_ranking=[]
+    for pet in Pet.objects.all():
+        sum_of_like=0
+        for post in pet.post_set.all():
+            sum_of_like+=Count(post.like_users)
+        pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
+    pets_by_ranking.sort(key=lambda x: x[2])
 
-        if request.user.is_authenticated:
-            feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
-            following_pet=request.user.following_pets.all()
-            return render(
-                request, 
-                'petPosts/index.html', 
-                {
-                    'pet_rank':pets_by_ranking,
-                    'feed': feed,
-                    'following_pets':following_pet
-                }
-            )
-        else:
-            feed=Post.objects.all().order_by('-created_at')
-            return render(
-                request, 
-                'petPosts/index.html', 
-                {
-                    'pet_rank':pets_by_ranking,
-                    'feed': feed
-                }
-            )
+    if request.user.is_authenticated:
+        feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
+        following_pet=request.user.following_pets.all()
+        return render(
+            request, 
+            'petPosts/index.html', 
+            {
+                'pet_rank':pets_by_ranking,
+                'feed': feed,
+                'following_pets':following_pet
+            }
+        )
+    else:
+        feed=Post.objects.all().order_by('-created_at')
+        return render(
+            request, 
+            'petPosts/index.html', 
+            {
+                'pet_rank':pets_by_ranking,
+                'feed': feed
+            }
+        )
+
+def new(request, id):
+    if request.method == 'GET':
+        pet = Pet.objects.get(id=id)
+        id = pet.id
+        return render(request, 'petPosts/new.html', {'pet':pet, 'id':id})
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         post = Post.objects.create(title=title, content=content)
+        pet = Pet.objects.get(id=id)
+        id = pet.id
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
             photo.image = img
             photo.save()
-        return redirect('petPosts:index') 
-
-def new(request):
-    #if request.method == 'GET':
-            #user가 누군지 알아서 그    user의 펫들을 선택할 수 있게 반영
-
-        return render(request, 'petPosts/index.html')
-    #elif request.method == 'POST':
-
-        #return redirect
+        return render(request, 'pets/showpet.html', {'post':post, 'pet':pet, 'id':id})
 
 def show(request, id):
     post = Post.objects.get(id=id)

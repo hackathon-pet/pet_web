@@ -7,8 +7,8 @@
   <a href="{% url 'petPosts:index' %}">home</a>
   <h1 id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</h1>
   <p>작성일: {{ post.created_at }}</p>
-  {% for photo in post.photo_set.all %}
-    <img src="{{photo.image.url}}" width="50"><br>
+  {% for photo in post.photo_set.all%}
+    <img src="{{photo.image.url}}" width="500"><br>
   {% endfor %}
   <p style="width: 70%;">{{ post.content }}</p>
   {% if request.user == post.pet.owner %}

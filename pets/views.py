@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Pet, PetForm, Follow
+from petPosts.models import Post
 from django.db.models import Count
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
@@ -19,7 +20,8 @@ def newpet(request):
 
 def showpet(request, id):
   pet = Pet.objects.get(id=id)
-  return render(request, 'pets/showpet.html', {'pet':pet})
+  posts = Post.objects.filter(pet=pet)
+  return render(request, 'pets/showpet.html', {'pet':pet, 'posts':posts})
 
 def deletepet(request, id):
   pet = Pet.objects.get(id=id)
