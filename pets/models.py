@@ -30,7 +30,7 @@ class Pet(models.Model):
                           format='JPEG', # 이미지 포멧 (jpg, png)
                           options={  # 이미지 포멧 관련 옵션 
                             'quality':90,
-                          }
+                          },
                         )
   follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
 
