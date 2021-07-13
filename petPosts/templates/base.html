@@ -36,6 +36,7 @@
           <div id="user-like-count" style="padding-left: 10px">
             내가 좋아한 글 : {{ user.like_posts.count }}개
           </div>
+          <a href="{% url 'petPosts:new' %}">새 포스트 작성하기</a>
           <a id="logout" class="mdl-navigation__link" href="{% url 'logout' %}">로그아웃</a>
           <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보, 펫 추가하기</a>
           {% else %}
@@ -50,7 +51,7 @@
       <nav class="mdl-navigation">
         {% if user.is_authenticated %}
         <a class="mdl-navigation__link" href="{% url 'logout' %}">로그아웃</a>
-        <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보 수정하기</a>
+        <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보 확인하기</a>
         {% else %}
         <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
         <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>

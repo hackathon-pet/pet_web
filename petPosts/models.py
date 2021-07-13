@@ -7,7 +7,6 @@ from pets.models import Pet
 class Post(models.Model):
     title = models.CharField(max_length=256)
     content = models.TextField()
-    image = models.ImageField(blank=True, null=True)
     pet = models.ForeignKey(Pet, null=True, on_delete= models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
