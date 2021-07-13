@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Post, Photo, Comment, Like, CommentLike
-from pets.models import Pet
+from pets.models import Pet,PetForm
 from accounts.models import Profile
 from pets.models import Pet
 from django.db.models import Count, Sum
@@ -9,18 +9,32 @@ from django.http import JsonResponse
 from pets.models import Pet
 from django import forms
 from collections import defaultdict
+
 # Create your views here.
 def index(request):
     if request.method == 'GET': 
         pets_by_ranking=[]
-        categories=defaultdict()
+        categories={}
+        form = PetForm()
+        
+        for x,y in form.fields['category'].choices:
+            if x!='':
+                categories[y]={}
+                category_pet=Pet.objects.filter(category=x)
+                pet_by_category=[]
+                for pet in category_pet:
+                    sum=0
+                    for post in pet.post_set.all():
+                        sum+=Count(post.like_users)
+                    pet_by_category.append([pet, sum])
+                pet_by_category.sort(key=lambda x: -x[1])
+                categories[y]=pet_by_category
         for pet in Pet.objects.all():
             sum_of_like=0
-            categories[pet.get_category_display()]+=pet.id
             for post in pet.post_set.all():
                 sum_of_like+=Count(post.like_users)
             pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
-        pets_by_ranking.sort(key=lambda x: x[2])
+        pets_by_ranking.sort(key=lambda x: -x[2])
         if request.user.is_authenticated:
             feed = Post.objects.filter(pet__in=request.user.following_pets.all()).order_by('-created_at')
             following_pet=request.user.following_pets.all()
@@ -31,7 +45,8 @@ def index(request):
                     'pet_rank':pets_by_ranking,
                     'feed': feed,
                     'following_pets':following_pet,
-                    'categories': categories
+                    'categories': categories,
+                    'form': form
                 }
             )
         else:
@@ -42,7 +57,8 @@ def index(request):
                 {
                     'pet_rank':pets_by_ranking,
                     'feed': feed,
-                    'categories': categories
+                    'categories': categories,
+                    'form': form
                 }
             )
     elif request.method == 'POST': 
@@ -54,7 +70,7 @@ def index(request):
             photo.post = post
             photo.image = img
             photo.save()
-        return redirect('petPosts:index') 
+        return redirect(request, 'pets/showpet.html') 
 
 def new(request):
     return render(request, 'petPosts/new.html')

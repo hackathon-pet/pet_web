@@ -45,3 +45,9 @@ const onSetPostLikeCount = async (likeCount) => {
       onSetPostLikeCount(response.data.postLikeCount);
     }
   }
+
+  const onClickCategory=async (category)=>{
+      if (category==0){
+        
+      }
+  }

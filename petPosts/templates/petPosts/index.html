@@ -13,10 +13,11 @@
 {% endblock js %}
 
 {% block content %}
-<script src="{% static 'petPosts/js/index2.js' %}"></script>
+<script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/index2.js' %}"></script>
   <div class="category-top">
+    <a onclick="onClickCategory(0)"> 전체 </a>
     {% for category in categories%}
-    <p> <a oncli{{category}}</p>
+    <a onclick="onClickCategory({{forloop.counter}})"> {{category}}</a>
     {% endfor %}
   </div>
   </div>
