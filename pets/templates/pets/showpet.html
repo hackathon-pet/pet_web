@@ -6,30 +6,32 @@
 <div>
   <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</h1>
   <img src="{{pet.image.url}}" width="500">
-  <p>펫 종류</p>
   <p>{{pet.get_category_display}}</p>
   <p style="width: 70%;">{{ pet.introduction }}</p>
 </div>
+
 {% if request.user.profile == pet.owner %}
   <a href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
   <a href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
   <a href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
 {% endif %}
+
 {{ pet.follow_users.count }} 
 {% if user.is_authenticated %}
   <a href="{% url 'pets:follow' id=pet.id %}">
     Follow
   </a>
 {% endif %}
-
-<p>{{ pet.name }}의 포스트</p>
+<br />
+<div>
 {% for post in posts %}
-  <div style="border: 1px solid grey;">
-    <a href="/petPosts/{{ post.id }}/">
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content }}</p>
-    </a>
-  </div> 
+<a href="{% url 'petPosts:show' id=post.id %}">
+  <p>제목: {{post.title}}<p>
+  <p>작성일: {{ post.created_at }}</p>
+  {% for photo in post.photo_set.all %}
+    <img src="{{photo.image.url}}" width="150"><br>
+  {% endfor %}
+</a>
 {% endfor %}
-
+</div>
 {% endblock content %}

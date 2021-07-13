@@ -4,6 +4,15 @@
  <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}의 새 포스트 작성</h1>
   <form action="{% url 'petPosts:new' id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    <!--<p>나의 펫,</p>
+    <div class="form-group">
+        <select name="pet" class="selectpicker" data-title="Select Pet" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+          {% for x,y in form.fields.category.choices %}
+            <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
+          {% endfor %}
+        </select>
+    </div>
+    <p>의 포스트 작성</p>-->
     <p>태그 선택</p>
     {% for tag in tags %}
       {{ tag.content }}
