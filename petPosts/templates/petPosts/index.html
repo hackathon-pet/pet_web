@@ -102,8 +102,8 @@
   {% if user.is_authenticated %}
   <div class="myfollowing">
       {% for pet in following_pets%}
-        <p>{{ pet.name}} </p>
-        <div> {{ forloop.counter }} {{image.url}} </div>
+        <p>{{ forloop.counter }}<a href={% url 'pets:showpet' pet.id %} >{{ pet.name}}</a> </p>
+        <div>  <img src = "{{pet.image.url}}"></div>
       {% endfor %}
   </div>
   {%endif%}
