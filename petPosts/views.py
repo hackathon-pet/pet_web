@@ -11,6 +11,7 @@ from django import forms
 from collections import defaultdict
 import json
 from json import JSONEncoder
+import locale
 # Create your views here.
 
 def index(request):
@@ -27,16 +28,18 @@ def index(request):
                 category_pet=Pet.objects.filter(category=x)
                 pet_by_category=[]
                 for pet in category_pet:
-                    sum=0
+                    sumall=0
                     for post in pet.post_set.all():
-                        sum+=Count(post.like_users)
-                    pet_by_category.append([pet, sum])
+                        p = Post.objects.filter(id=post.id).annotate(num_like=Count('like_users'))
+                        sumall+=(p[0].num_like)
+                    pet_by_category.append([pet, sumall])
                 pet_by_category.sort(key=lambda x: -x[1])
                 categories[y]=pet_by_category
         for pet in Pet.objects.all():
             sum_of_like=0
             for post in pet.post_set.all():
-                sum_of_like+=Count(post.like_users)
+                p = Post.objects.filter(id=post.id).annotate(num_like=Count('like_users'))
+                sum_of_like+=(p[0].num_like)
             pets_by_ranking.append([pet, pet.name, sum_of_like, pet.image])
         pets_by_ranking.sort(key=lambda x: -x[2])
         if request.user.is_authenticated:
@@ -49,8 +52,7 @@ def index(request):
                     'pet_rank':pets_by_ranking,
                     'feed': feed,
                     'following_pets':following_pet,
-                    'categories': categories,
-                    'form': form
+                    'categories': categories
                 }
             )
         else:
@@ -61,8 +63,7 @@ def index(request):
                 {
                     'pet_rank':pets_by_ranking,
                     'feed': feed,
-                    'categories': categories,
-                    'form': form
+                    'categories': categories
                 }
             )
 
@@ -114,6 +115,7 @@ def update(request, id):
 
 class CommentView:
     def create(request, id):
+        locale.setlocale(locale.LC_TIME, 'ko_KR.UTF-8')
         content = request.POST['content']
         comment = Comment.objects.create(post_id=id, content=content)
         current_time = comment.created_at.strftime('%Y년 %m월 %d일 %-H:%M')

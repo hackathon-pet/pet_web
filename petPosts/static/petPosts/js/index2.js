@@ -65,10 +65,33 @@ const onSetPostLikeCount = async (likeCount) => {
       }
     }
     
-    
-    
-   
-    
+  }
+  const onSetCommentCount = (commentCount) => {
+    const commentCountElement = document.getElementById('comment-count');
+    commentCountElement.innerHTML = `<strong>댓글이 ${commentCount}개 있습니다</strong>`;
+  }
+  
+  const getCommentElement = (postId, commentId, commentCount, comment, createdTime, author) => {
+    var commentElement = document.createElement('p');
+    commentElement.id = `post${postId}-comment${commentId}`;
+    commentElement.innerHTML = `${author}: ${comment} &nbsp; &nbsp; ${createdTime}
+                                <a id="comment${commentId}-like-button" onclick="onLikeComment(${commentId})">
+                                ${ commentCount } Likes </a>
+                                <a onclick="onDeleteComment(${postId}, ${commentId})">댓글 삭제</a>`  
+    return commentElement;
+  }
+  
+  const onAddComment = async (postId) => {
+    const commentInputElement = document.getElementById(`post${postId}-comment-input`);
+    console.log(commentInputElement)
+    const data = new FormData();
+    data.append("content", commentInputElement.value);
+    const response = await axios.post(`/posts/${postId}/comments/`, data);
+    const { commentId, commentCount, commentLikeCount, createdTime, author } = response.data;
+    const commentElement = getCommentElement(postId, commentId, commentLikeCount, commentInputElement.value, createdTime, author);
+    document.getElementById(`${postId}-comment-list`).appendChild(commentElement);
+    onSetCommentCount(commentCount);
+    commentInputElement.value = '';
   }
 
  
