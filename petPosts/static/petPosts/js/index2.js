@@ -48,11 +48,24 @@ const onSetPostLikeCount = async (likeCount) => {
   }
 
   const onClickCategory=async (category)=>{
-    const getAllPosts=document.getElementsByClassName('animal');
-    
-      for(var i in getAllPosts){
-        console.log(getAllPosts[i])
+    const pets= document.getElementsByClassName('animal');
+    let id='p'+category+"-pet-rank";
+    if (category==0){
+      for(var i=1; i<=pets.length; i+=1){
+        pets[i].style.display='block';
       }
+    }else{
+      for (var i=0;i<pets.length;i+=1){
+        if (pets[i].id==id){
+          pets[i].style.display = 'block';
+        }
+        else{
+          pets[i].style.display = 'none';
+        }
+      }
+    }
+    
+    
     
    
     
