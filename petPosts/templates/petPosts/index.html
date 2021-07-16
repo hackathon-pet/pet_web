@@ -24,7 +24,7 @@
   </div>
   <div class="ranking">
       {% for pet in pet_rank%}
-        <div class="animal" id="{{pet.0.category}}-pet-rank" style ="display:block">>
+        <div class="animal" id="{{pet.0.category}}-pet-rank" style ="display:block">
         <p id="pet-rank"> {{ forloop.counter }}등 </p>
         <p> 펫이름 </p>
         <p><a href={% url 'pets:showpet' pet.0.id %} > {{pet.1}}</a></p>

@@ -76,15 +76,15 @@ def new(request, id):
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(title=title, content=content)
         pet = Pet.objects.get(id=id)
-        id = pet.id
+        post = Post.objects.create(title=title, content=content, pet=pet)
+        post.save()
         for img in request.FILES.getlist('imgs'):
             photo = Photo()
             photo.post = post
             photo.image = img
             photo.save()
-        return render(request, 'pets/showpet.html', {'post':post, 'pet':pet, 'id':id})
+        return redirect('pets:showpet', id=id)
 
 
 def show(request, id):

@@ -48,3 +48,14 @@ const onLikePost = async (postId) => {
       commentElement.remove();
     }
   }
+
+  const onDeletePost = async (postId,petId) => {
+    const confirmDeleteFeed = confirm('정말 삭제하시겠습니까?');
+    console.log(petId);
+    if(confirmDeleteFeed) {
+      const response = await axios.delete(`/posts/${postId}/delete/`);
+      
+      location.replace(`/pets/${petId}/`);
+    }
+
+  }
