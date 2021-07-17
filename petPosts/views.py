@@ -125,6 +125,7 @@ class CommentView:
             'commentCount': post.comment_set.count(),
             'commentLikeCount': comment.like_users.count(), 
             'createdTime': current_time,
+            'author':request.user.username
         })
         
     def delete(request, id, cid):

@@ -1,9 +1,8 @@
-const follow = async () => {
+const follow = async (petID) => {
     
-
-      const response = await axios.delete(`/posts/${postId}/delete/`);
-      const post = document.getElementById(`post-${postId}`);
-      post.remove();
-      onSetPostLikeCount(response.data.postLikeCount);
+    const followers = document.getElementById(`${petID}-followers`);
+    const response = await axios.get(`/pets/${petID}/follow/`);
+    const follow_count = response.data.follow_count;
+    followers.innerHTML = `${follow_count} followers`;
 
   }

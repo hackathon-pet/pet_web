@@ -16,13 +16,11 @@
   <a href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
   <a href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
 {% endif %}
-
+<p id="{{pet.id}}-followers">
 {{ pet.follow_users.count }} 
+</p>
 {% if user.is_authenticated %}
-  <a onclick="follow()" > follow </a>
-  <a href="{% url 'pets:follow' id=pet.id %}">
-    Follow
-  </a>
+  <a onclick="follow({{pet.id}})" > follow </a>
 {% endif %}
 <br />
 <div>
