@@ -14,6 +14,29 @@
 
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/index2.js' %}"></script>
+
+     <div class="background">
+          <h1 class="title">P.E.T</h1>
+          <h2 class="explanation">Upload your pets &amp;<br>Look around o<span style="font-weight: 700;"></span>ther pets
+          </h2>
+          <br>
+          <div class="info">
+        {% if user.is_authenticated%}
+            <button class="to-my-info"  onclick="location.href='accounts/myinfo'"> My pets</a>
+            <button class="to-ranking" onclick="location.href='#target'"> See Ranking</a>
+          {% else%}
+            <a class="signup" href={% url 'signup'%}> 회원가입</a>
+            <a class="login" href={% url 'login' %}> 로그인 </a>
+            <button class="to-ranking" onclick="location.href='#target'"> See Ranking</a>
+          {%endif%}
+        </div>
+ 
+         <div style="position: relative" class="group">
+        </div>
+        </div>
+      <img class="u-expanded-width u-image u-image-1" src="{% static 'petPosts/img/ffff.jpg'%}">
+
+<div id="target"> </div>
   <div class="container">
   
   <div class="first">

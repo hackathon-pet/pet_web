@@ -1,5 +1,82 @@
+html {
+    scroll-behavior: smooth;
+}
 .container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
+.title{
+    z-index: 20;
+    font-size: 9.375rem;
+    font-weight: 700;
+    text-shadow: 5px 6px 0 rgba(0,0,0,0.25);;
+    margin: -102px 0 0;
+    font-family: Oswald, sans-serif !important;
+    position: absolute;
+    margin-top: 10px;
+    left:50%; 
+    transform:translateX(-50%);
+}
+.explanation{
+    position: absolute;
+    z-index: 10;
+    color: white;
+    font-family: Roboto,sans-serif;
+    display: block;
+    font-size: 1.7em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    text-align: center;
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+    left:50%; 
+    transform:translateX(-50%);
+    margin-top: 170px;
+}
+
+.group{
+    margin-top: 85px;
+    z-index: 0;
+    position: relative;
+    flex: 1;
+    height: 300px;
+    background-color: #478ac9;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 0 30px;
+}
+div {
+    display: block;
+}
+.info{
+    z-index: 30;
+    position: absolute;
+    left:50%; 
+    transform:translateX(-50%);
+    margin-top: 230px;
+}
+.to-my-info, .to-ranking, .signup, .login{
+    color: black;
+    background-color: white;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    background-image: none;
+    margin: 63px auto 0;
+    border-radius: 50px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+}
+.background{
+    background-color: #dfdfdd;
+}
+
