@@ -84,13 +84,11 @@
         </div>
     </div>
       <div class="card-body">  
-          <!--Comment에 대한 modelform 작성-->
           <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
           <p>
           {% csrf_token %}
           <input id="post{{post.id}}-comment-input" type="text" name="content" />
           <button onclick="onAddComment({{post.id}})">댓글 달기</button>
-
           <hr>
       </div>
     {% endfor %}

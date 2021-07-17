@@ -26,7 +26,7 @@
 <div>
 {% for post in posts %}
 <a href="{% url 'petPosts:show' id=post.id %}">
-  <p>제목: {{post.title}}<p>
+  <p>제목: {{post.title}}</p>
   <p>작성일: {{ post.created_at }}</p>
   {% for photo in post.photo_set.all %}
     <img src="{{photo.image.url}}" width="150"><br>
