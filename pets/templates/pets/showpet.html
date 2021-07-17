@@ -21,6 +21,8 @@
   <a href="{% url 'pets:follow' id=pet.id %}">
     Follow
   </a>
+{% else %}
+  Follow
 {% endif %}
 <br />
 <div>

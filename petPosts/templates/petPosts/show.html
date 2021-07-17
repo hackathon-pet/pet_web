@@ -9,6 +9,7 @@
 <div>
   <a href="{% url 'petPosts:index' %}">home</a>
   <h1 id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</h1>
+  <p>{{post.pet.name}}의 포스트</p>
   <p>작성일: {{ post.created_at }}</p>
   {% for photo in post.photo_set.all%}
     <img src="{{photo.image.url}}" width="500"><br>
