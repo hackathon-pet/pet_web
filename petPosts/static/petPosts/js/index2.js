@@ -48,14 +48,48 @@ const onSetPostLikeCount = async (likeCount) => {
   }
 
   const onClickCategory=async (category)=>{
-    const getAllPosts=document.getElementsByClassName('animal');
-    
-      for(var i in getAllPosts){
-        console.log(getAllPosts[i])
+    const pets= document.getElementsByClassName('animal');
+    let id='p'+category+"-pet-rank";
+    if (category==0){
+      for(var i=1; i<=pets.length; i+=1){
+        pets[i].style.display='block';
       }
+    }else{
+      for (var i=0;i<pets.length;i+=1){
+        if (pets[i].id==id){
+          pets[i].style.display = 'block';
+        }
+        else{
+          pets[i].style.display = 'none';
+        }
+      }
+    }
     
-   
-    
+  }
+  const onSetCommentCount = (commentCount) => {
+    const commentCountElement = document.getElementById('comment-count');
+    commentCountElement.innerHTML = `<strong>댓글이 ${commentCount}개 있습니다</strong>`;
+  }
+  
+  const getCommentElement = (postId, commentId, commentCount, comment, createdTime, author) => {
+    var commentElement = document.createElement('p');
+    commentElement.id = `post${postId}-comment${commentId}`;
+    commentElement.innerHTML = `${author}: ${comment} &nbsp; &nbsp; ${createdTime}
+                                <a id="comment${commentId}-like-button" onclick="onLikeComment(${commentId})">
+                                ${ commentCount } Likes </a>
+                                <a onclick="onDeleteComment(${postId}, ${commentId})">댓글 삭제</a>`  
+    return commentElement;
+  }
+  
+  const onAddComment = async (postId) => {
+    const commentInputElement = document.getElementById(`post${postId}-comment-input`);
+    const data = new FormData();
+    data.append("content", commentInputElement.value);
+    const response = await axios.post(`/posts/${postId}/comments/`, data);
+    const { commentId, commentCount, commentLikeCount, createdTime, author } = response.data;
+    const commentElement = getCommentElement(postId, commentId, commentLikeCount, commentInputElement.value, createdTime, author);
+    onSetCommentCount(commentCount);
+    commentInputElement.value = '';
   }
 
  
