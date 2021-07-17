@@ -17,8 +17,10 @@
   <div class="container">
   
   <div class="first">
+  <p> 펫 랭킹 </p>
   <div class="category-top">
-    <a onclick="onClickCategory(0)"> 전체 </a>
+    <p> 카테고리 선택 </p>
+    <a onclick="onClickCategory({{0}})"> 전체 </a>
     {% for category in categories%}
  
     <a onclick="onClickCategory({{forloop.counter}})"> {{category}}</a>
@@ -38,6 +40,7 @@
   </div>
 </div>
 <div class="second">
+  <p> 내가 팔로우하는 펫들의 피드 </p>
   <div class="row justify-content-center">
     {% for post in feed %}
      <div class="card mt-2 mr-2" style="width: 20rem;">
@@ -49,7 +52,7 @@
           {% endif %}
         </div>
         {% for photo in post.photo_set.all%}
-        <img src="{{photo.image.url}}" width="500" height="500"><br>
+        <img src="{{photo.image.url}}" width="300" height="300"><br>
         {% endfor %}
 
         <div class="card-body">
@@ -73,14 +76,14 @@
           {% endif %}
         </a>
         {% else %}
-        <div class="material-icons mdl-badge mdl-badge--overlap" 
-          data-badge="{{ post.like_users.count }}">
-          favorite
-        </div>
+          <div class="material-icons mdl-badge mdl-badge--overlap" 
+            data-badge="{{ post.like_users.count }}">
+            favorite
+          </div>
         {% endif %}
-      </div>
+        </div>
     </div>
-        <div class="card-body">  
+      <div class="card-body">  
           <!--Comment에 대한 modelform 작성-->
           <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
           <p>
@@ -89,18 +92,17 @@
           <button onclick="onAddComment({{post.id}})">댓글 달기</button>
 
           <hr>
-    </div>
-        </div>
       </div>
     {% endfor %}
   </div>
-  </div>
-  <div class="third">
+</div>
+<div class="third">
   {% if user.is_authenticated %}
   <div class="myfollowing">
+      <p> 내가 팔로우하는 펫들 </p>
       {% for pet in following_pets%}
         <p>{{ forloop.counter }}<a href={% url 'pets:showpet' pet.id %} >{{ pet.name}}</a> </p>
-        <div>  <img src = "{{pet.image.url}}"></div>
+        <div>  <img src = "{{pet.image.url}}" ></div>
       {% endfor %}
   </div>
   {%endif%}
