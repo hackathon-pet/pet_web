@@ -20,7 +20,7 @@
   <p> 펫 랭킹 </p>
   <div class="category-top">
     <p> 카테고리 선택 </p>
-    <a onclick="onClickCategory({{0}})"> 전체 </a>
+    <a onclick="onClickCategory({{"0"}})"> 전체 </a>
     {% for category in categories%}
  
     <a onclick="onClickCategory({{forloop.counter}})"> {{category}}</a>
@@ -41,8 +41,10 @@
 </div>
 <div class="second">
   <p> 내가 팔로우하는 펫들의 피드 </p>
+  {% if user.is_authenticated%}
   <div class="row justify-content-center">
     {% for post in feed %}
+    <div id="post-{{post.id}}">
      <div class="card mt-2 mr-2" style="width: 20rem;">
         <div class="card-header">
           <a href={% url 'petPosts:show' post.id%} {{ post.pet.name }} </a>
@@ -91,8 +93,13 @@
           <button onclick="onAddComment({{post.id}})">댓글 달기</button>
           <hr>
       </div>
+    </div>
     {% endfor %}
   </div>
+  {%else %}
+   <p> 로그인 회원가입을 하여 팔로우하는 펫들을 팔로우해보세요</p>
+  {%endif %}
+
 </div>
 <div class="third">
   {% if user.is_authenticated %}
