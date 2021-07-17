@@ -46,21 +46,20 @@
     {% for post in feed %}
     <div id="post-{{post.id}}">
      <div class="card mt-2 mr-2" style="width: 20rem;">
+
         <div class="card-header">
-          <a href={% url 'petPosts:show' post.id%} {{ post.pet.name }} </a>
-          {% if post.pet.owner == request.user.profile %}
-            <a onclick="onDeletePost({{post.id}})">삭제</a>
-          <a href={% url 'petPosts:update' post.id %} class="btn btn-success">수정</a>
-          {% endif %}
+          <a href={% url 'petPosts:show' post.id%}> {{ post.pet.name }} </a>       
         </div>
         {% for photo in post.photo_set.all%}
         <img src="{{photo.image.url}}" width="300" height="300"><br>
         {% endfor %}
-
         <div class="card-body">
-          <h5 class="card-text"><a href={% url 'petPosts:show' post.id%}>{{ post.content }}</a></h5>
+          <h5 class="card-text"><a href={% url 'petPosts:show' post.id%}>{{ post.title }}</a></h5>
         </div>
-        
+        {% if post.pet.owner == request.user.profile %}
+            <a onclick="onDeletePost({{post.id}})">삭제</a>
+          <a href={% url 'petPosts:update' post.id %} class="btn btn-success">수정</a>
+          {% endif %}
         
         <hr style="border: solid 3px gray">
         <!--좋아요 버튼-->

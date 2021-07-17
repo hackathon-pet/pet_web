@@ -21,6 +21,8 @@
 </p>
 {% if user.is_authenticated %}
   <a onclick="follow({{pet.id}})" > follow </a>
+{% else %}
+  follow
 {% endif %}
 <br />
 <div>
