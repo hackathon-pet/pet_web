@@ -83,13 +83,11 @@ const onSetPostLikeCount = async (likeCount) => {
   
   const onAddComment = async (postId) => {
     const commentInputElement = document.getElementById(`post${postId}-comment-input`);
-    console.log(commentInputElement)
     const data = new FormData();
     data.append("content", commentInputElement.value);
     const response = await axios.post(`/posts/${postId}/comments/`, data);
     const { commentId, commentCount, commentLikeCount, createdTime, author } = response.data;
     const commentElement = getCommentElement(postId, commentId, commentLikeCount, commentInputElement.value, createdTime, author);
-    document.getElementById(`${postId}-comment-list`).appendChild(commentElement);
     onSetCommentCount(commentCount);
     commentInputElement.value = '';
   }
