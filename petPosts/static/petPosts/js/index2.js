@@ -51,7 +51,7 @@ const onSetPostLikeCount = async (likeCount) => {
     const pets= document.getElementsByClassName('animal');
     let id='p'+category+"-pet-rank";
     if (category==0){
-      for(var i=1; i<=pets.length; i+=1){
+      for(var i=0; i<pets.length; i+=1){
         pets[i].style.display='block';
       }
     }else{

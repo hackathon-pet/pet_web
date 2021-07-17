@@ -51,4 +51,5 @@ class FollowView:
       pet.follow_set.get(user=request.user.id).delete()
     else:
       Follow.objects.create(user=request.user, pet=pet)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    follow=Follow.objects.filter(pet=pet)
+    return JsonResponse(  {'follow_count': follow.count()} )
