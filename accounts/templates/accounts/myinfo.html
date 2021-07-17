@@ -1,5 +1,5 @@
 <h2>
-  My info!
+  Profile
 </h2>
 <div>
   <p>
@@ -10,12 +10,14 @@
     introduction :
     {{profile.introduction}}
   </p>
-  <a class="mdl-navigation__link" href="{% url 'editmyinfo' %}">내 정보 수정하기</a>
+  {% if request.user == profile.user %}
+  <a class="mdl-navigation__link" href="{% url 'editmyinfo' %}">내 정보 수정하기</a
+  {% endif %}
 </div>
 
 
 <h2>
-  My pets!
+  Pets
 </h2>
 <div>
   {% for pet in pets %}
@@ -26,9 +28,11 @@
     <img src="{{ pet.image.url }}"><br>
     </a>
   {% endfor %}
+  {% if request.user == profile.user %}
   <a href="{% url 'pets:newpet' %}">
     Add your lovely pet!
   </a>
+  {% endif %}
   <br>
   <br>
   <a href="{% url 'petPosts:index' %}">

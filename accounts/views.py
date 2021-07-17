@@ -19,12 +19,12 @@ def myinfo(request):
   if request.method == 'GET':
     profile = Profile.objects.get(user=request.user)
     pets = Pet.objects.filter(owner=request.user.profile)
-  return render(request, 'accounts/myinfo.html', {'pets':pets, 'profile':profile })      
+  return render(request, 'accounts/myinfo.html', {'pets':pets, 'profile':profile})      
 
 def editmyinfo(request):
     if request.method == 'POST':
         Profile.objects.filter(user=request.user).update(email=request.POST['email'], introduction=request.POST['introduction'])
-        return redirect('/posts')
+        return redirect('/accounts/myinfo/')
 
     return render(request, 'accounts/editmyinfo.html')
 
