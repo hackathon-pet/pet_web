@@ -46,11 +46,11 @@
 }
 
 #pet-name{
-    margin-left: 10px;
-    margin-right: 10px;
     font-family: 'Nanum Gothic', sans-serif;
     margin-top: 40px;
     font-size: 30px;
+    margin-left: 10px;
+    word-break: break-all;
 }
 .pet-div{
     display: flex;
@@ -148,5 +148,5 @@
     justify-content: space-around;
     margin-left: 60px;
     margin-right: 70px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
