@@ -1,30 +1,31 @@
-<h1> Sign Up! </h1>
-<form method="POST" action="{%url 'signup' %}">
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/signup.scss' %}">
+{% endblock style %}
+
+<div class="wrap">
+<div class="container">
+    <form id="signup-form" method="POST" action="{%url 'signup' %}">
     {% csrf_token %}
-    사용자 이름:
+    <h1> Sign Up </h1>
+    <input name="username" type="text" placeholder="Enter your username" value="">
     <br>
-    <input name="username" type="text" value="">
+    <input name="password1" type="password" placeholder="Enter your password" value="">
     <br>
-    <br>
-    비밀번호:
-    <br>
-    <input name="password1" type="password" value="">
+    <input name="password2" type="password" placeholder="Enter your password once more" value="">
     <br>
     <br>
-    비밀번호 확인:
     <br>
-    <input name="password2" type="password" value="">
+    <input name="email" type="text" placeholder="Enter your e-mail" value="">
     <br>
-    <br>
-    e-mail:
-    <br>
-    <input name="email" type="text" value="">
+    <input name="introduction" type="text" placeholder="Introduce yourself" value="">
     <br>
     <br>
-    소개:
-    <br>
-    <input name="introduction" type="text" value="">
-    <br>
-    <br>
-    <input type="submit" value="Sign Up!">
-</form>
+    <input id="signup-button" type="submit" value="Sign Up">
+    <a class="mdl-navigation__link" href="{% url 'login' %}">
+        <p>Have an account?</p>
+    </a>
+    </form>
+</div>
+</div>
