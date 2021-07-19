@@ -9,6 +9,7 @@
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{% static 'pets/js/show.js' %}"></script>
 <div class="showpet">
+  <a href="{% url 'petPosts:index' %}">home</a>
   <div class="pet-image-and-name">
   <div class="image">
   <img class="pet-img" src="{{pet.image.url}}" width="600">
@@ -20,7 +21,7 @@
   <div class="post-owenr">
   <a class="post" href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
   <a class="post" href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
-  <a class="post" href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
+  <a onclick="onDeletePet({{pet.id}})">펫 삭제</a>
   </div>
 {% endif %}
   </div>
@@ -110,7 +111,6 @@
   </div>
   </div>
  
-
 {% if user.is_authenticated %}
 <div class="button-group">
      <a onclick="follow({{pet.id}})" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span class="u-icon u-icon-1"><svg class="u-svg-content" viewBox="0 0 512 512" style="width: 1em; height: 1em;"><g><g><g><path d="m471.227 194.403h-430.454c-18.376 0-33.273-14.897-33.273-33.273v-120.357c0-18.376 14.897-33.273 33.273-33.273h430.454c18.376 0 33.273 14.897 33.273 33.273v120.357c0 18.376-14.897 33.273-33.273 33.273z" fill="#b3dafe"></path><path d="m471.227 7.5h-30c18.376 0 33.273 14.897 33.273 33.273v120.357c0 18.376-14.897 33.273-33.273 33.273h30c18.376 0 33.273-14.897 33.273-33.273v-120.357c0-18.376-14.897-33.273-33.273-33.273z" fill="#8ac9fe"></path>

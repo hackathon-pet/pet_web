@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <a href="{% url 'petPosts:index' %}">home</a>
     <h1>update pet</h1>
   <form action="{% url 'pets:updatepet' id=pet.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}

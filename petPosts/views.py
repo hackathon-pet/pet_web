@@ -116,9 +116,9 @@ def update(request, id):
 class CommentView:
     def create(request, id):
         content = request.POST['content']
-        comment = Comment.objects.create(post_id=id, content=content)
+        comment = Comment.objects.create(post_id=id, content=content, author=request.user)
         current_time = comment.created_at.strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')
-
+        
         post = Post.objects.get(id=id)
         return JsonResponse({
             'commentId': comment.id,
