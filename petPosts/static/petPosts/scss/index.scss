@@ -1,5 +1,291 @@
+html {
+    scroll-behavior: smooth;
+}
 .container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.title{
+    z-index: 20;
+    font-size: 9.375rem;
+    font-weight: 700;
+    text-shadow: 5px 6px 0 rgba(0,0,0,0.25);;
+    margin: -102px 0 0;
+    font-family: Oswald, sans-serif !important;
+    position: absolute;
+    margin-top: 10px;
+    left:50%; 
+    transform:translateX(-50%);
+}
+.explanation{
+    position: absolute;
+    z-index: 10;
+    color: white;
+    font-family: Roboto,sans-serif;
+    display: block;
+    font-size: 1.7em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    text-align: center;
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+    left:50%; 
+    transform:translateX(-50%);
+    margin-top: 170px;
+}
+
+.group{
+    margin-top: 85px;
+    z-index: 0;
+    position: relative;
+    flex: 1;
+    height: 300px;
+    background-color: #478ac9;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 0 30px;
+}
+div {
+    display: block;
+}
+.info{
+    z-index: 30;
+    position: absolute;
+    left:50%; 
+    transform:translateX(-50%);
+    margin-top: 230px;
+}
+.to-my-info, .to-ranking, .signup, .login{
+    color: black;
+    background-color: white;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    background-image: none;
+    margin: 63px auto 0;
+    border-radius: 50px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+}
+.background, .container{
+    background-color: #dfdfdd;
+}
+html {
+    scroll-behavior: smooth;
+}
+.first{
+    margin-left: 20px;
+    background-color:white;
+    border-style: none;
+    background-image: none;
+    border-radius: 10px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+    text-align: center;
+    margin-right: 20px;
+}
+.first, .second, .third{
+    width: 380px!important;
+    
+}
+.second{
+    background-color:white;
+    border-style: none;
+    background-image: none;
+    border-radius: 10px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+    text-align: center;
+}
+.third{
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color:white;
+    border-style: none;
+    background-image: none;
+    border-radius: 10px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+    text-align: center;
+}
+.ranking-title, .my-following-pets, .my-following-feed{
+    color: black;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.595rem;
+    letter-spacing: 1px;
+    background-image: none;
+    margin: 20px auto 0;
+    border-radius: 10px;
+    font-style: initial;
+    white-space: nowrap;
+    padding: 10px 30px;
+    text-align: center;
+}
+.following-pet-img{
+    width: 170px;
+    height: 170px;
+    border-radius: 30%;
+    overflow: hidden;
+}
+
+.pet-rank-img{
+    width: 170px;
+    height: 170px;
+    border-radius: 30%;
+    overflow: hidden;
+}
+.u-icon {
+    display: block;
+    line-height: 0;
+    border-width: 0px;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+.u-svg-content {
+    margin-top: 20px;
+    width: 120px;
+    height: 120px;
+    fill: currentColor;
+}
+.choose-category{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 0.995rem;
+}
+.category{
+   
+    white-space: pre-wrap;
+    font-family: 'Nanum Gothic', sans-serif;
+    background-color: #f3dcdf;
+
+    margin-top: 1px;
+    padding-bottom: 2px;
+    padding-right: 5px;
+}
+
+.u-svg-content-1 {
+
+    width: 50px;
+    height: 50px;
+    fill: currentColor;
+}
+#pet-rank{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size:12px;
+   
+}
+.pet-without-image{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.pet-name{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: Extra-bold 800 ;
+    font-size: 20px;
+    white-space: pre-wrap;
+}
+.u-btn-1 {
+    border-style: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    padding: 0;
+    text-decoration: none;
+    border: 0 none transparent;
+    outline-width: 0;
+    white-space: nowrap;
+    user-select: none;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 0;
+
+
+}
+.u-svg-content-2{
+    fill: currentColor;
+}
+.pet-intro{
+    margin-left: 10px;
+}
+.pet-info{
+    display: flex;
+    flex-direction: row;
+}
+.pet-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.count-of-followers{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 0.995rem;
+}
+.following-each-pet{
+    display: flex;
+    flex-direction: row;
+}
+
+.follow-pet-name{
+    white-space: pre-wrap;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: Extra-bold 800 ;
+    font-size: 18px;
+
+}
+.pet-group{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    justify-content: center;
+}
+.u-svg-content-3{
+   width: 50px;
+   height: 50px;
+}
+.card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.post-pet-name{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 20px;
+    white-space: pre-wrap;
+}
+.created_at{
+    font-family:'Nanum Gothic', sans-serif;
+    font-size: 0.595rem;
+}
+.post-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.post-style{
+    border-color: lightslategray;
+    border-width: 20px;
 }
