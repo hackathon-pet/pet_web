@@ -8,6 +8,7 @@
 <script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/show2.js' %}"></script>
 <div>
   <a href="{% url 'petPosts:index' %}">home</a>
+  <a href="{% url 'pets:showpet' id=post.pet.id %}">펫 페이지로 돌아가기</a>
   <h1 id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</h1>
   <p>{{post.pet.name}}의 포스트</p>
   <p>작성일: {{ post.created_at }}</p>

@@ -6,3 +6,13 @@ const follow = async (petID) => {
     followers.innerHTML = `${follow_count} followers`;
 
   }
+
+  const onDeletePet = async (petID) => {
+
+    const confirmDeletePet = confirm('펫을 정말 삭제하시겠습니까?');
+    if(confirmDeletePet) {
+      const response = await axios.delete(`/pets/${petID}/delete/`);
+      location.replace(`/accounts/myinfo/`);
+    }
+
+  }
