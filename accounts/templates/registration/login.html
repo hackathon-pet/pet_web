@@ -1,6 +1,22 @@
-<h1>로그인</h1>
-<form method="post" action="{% url 'login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="로그인" />
-</form>
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/login.scss' %}">
+{% endblock style %}
+
+<div class="wrap">
+  <div class="container">
+    <form id="login-form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+      <h1>Login</h1>
+      {{ form.as_p }}
+      <!--<input type="hidden" name="csrfmiddlewaretoken" value="l81ZjOlTMPx5l5ivMyPhuljaj0nEPHds6bAo9OpyEQQk4b2VaX6DUG03JzKyB2Vh">
+      <p><input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" placeholder="Enter your username" maxlength="150" required="" id="id_username"></p>
+      <p><input type="password" name="password" autocomplete="current-password" placeholder="Enter your password" required="" id="id_password"></p>-->
+      <input id="login-button" type="submit" value="Login">
+      <a class="mdl-navigation__link" href="{% url 'signup' %}">
+        <p>Don't have an account yet?</p>
+      </a>
+    </form>
+  </div>
+</div>
