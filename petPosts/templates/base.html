@@ -26,7 +26,9 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
+        <a class="mdl-navigation__link" href="{% url 'petPosts:index' %}">
         <span class="mdl-layout-title">P.E.T</span>
+        </a>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
@@ -36,8 +38,8 @@
           <div id="user-like-count" style="padding-left: 10px">
             내가 좋아한 글 : {{ user.like_posts.count }}개
           </div>
-          <a id="logout" class="mdl-navigation__link" href="{% url 'logout' %}">로그아웃</a>
-          <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보, 펫 추가하기</a>
+          <a class="mdl-navigation__link" href="{% url 'logout' %}">로그아웃</a>
+          <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보, 펫 관리</a>
           {% else %}
           <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
           <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>

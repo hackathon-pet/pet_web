@@ -1,25 +1,45 @@
 {% extends 'base.html' %}
 
 {% load static %}
-
+{% block js %}
+<script type="module" src="{% static 'petPosts/js/show.js' %}"></script>
+{% endblock js %}
 {% block content %}
+<script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/show2.js' %}"></script>
 <div>
   <a href="{% url 'petPosts:index' %}">home</a>
+  <a href="{% url 'pets:showpet' id=post.pet.id %}">펫 페이지로 돌아가기</a>
   <h1 id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</h1>
+  <p>{{post.pet.name}}의 포스트</p>
   <p>작성일: {{ post.created_at }}</p>
   {% for photo in post.photo_set.all%}
     <img src="{{photo.image.url}}" width="500"><br>
   {% endfor %}
   <p style="width: 70%;">{{ post.content }}</p>
-  {% if request.user == post.pet.owner %}
+  {% if post.pet.owner == request.user.profile %}
   <a href="{% url 'petPosts:update' id=post.id %}">수정</a>
-  <a href="{% url 'petPosts:delete' id=post.id %}">삭제</a>
+  <a id="post-delete" onclick="onDeletePost({{post.id}}, {{post.pet.id}})">삭제</a>
   {% endif %}
-  {% if user.is_authenticated %}
-  <a id="show-{{post.id}}-like-button" onclick="onLikePost({{post.id}})">
-    {{ post.like_users.count }} Likes
-  </a>
-  {% endif %}
+        <div class="like-container">
+        {% if user.is_authenticated %}
+        <a class="material-icons mdl-badge mdl-badge--overlap"
+          data-badge="{{ post.like_users.count }}"
+          onclick="onClickLikeButton({{post.id}})"
+          id="{{post.id}}-like-button"
+        >
+          {% if user in post.like_users.all %}
+          favorite
+          {% else %}
+          favorite_border
+          {% endif %}
+        </a>
+        {% else %}
+        <div class="material-icons mdl-badge mdl-badge--overlap" 
+          data-badge="{{ post.like_users.count }}">
+          favorite
+        </div>
+        {% endif %}
+      </div>
   <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
   <p>
   {% csrf_token %}

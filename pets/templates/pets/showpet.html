@@ -3,7 +3,9 @@
 {% load static %}
 
 {% block content %}
+<script language="JavaScript" type="text/javascript" src="{% static 'pets/js/follow.js' %}"></script>
 <div>
+  <a href="{% url 'petPosts:index' %}">home</a>
   <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</h1>
   <img src="{{pet.image.url}}" width="500">
   <p>{{pet.get_category_display}}</p>
@@ -13,20 +15,21 @@
 {% if request.user.profile == pet.owner %}
   <a href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
   <a href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
-  <a href="{% url 'pets:deletepet' id=pet.id %}">펫 삭제</a>
+  <a onclick="onDeletePet({{pet.id}})">펫 삭제</a>
 {% endif %}
-
+<p id="{{pet.id}}-followers">
 {{ pet.follow_users.count }} 
+</p>
 {% if user.is_authenticated %}
-  <a href="{% url 'pets:follow' id=pet.id %}">
-    Follow
-  </a>
+  <a onclick="follow({{pet.id}})" > follow </a>
+{% else %}
+  follow
 {% endif %}
 <br />
 <div>
 {% for post in posts %}
 <a href="{% url 'petPosts:show' id=post.id %}">
-  <p>제목: {{post.title}}<p>
+  <p>제목: {{post.title}}</p>
   <p>작성일: {{ post.created_at }}</p>
   {% for photo in post.photo_set.all %}
     <img src="{{photo.image.url}}" width="150"><br>

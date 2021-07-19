@@ -13,33 +13,53 @@
 {% endblock js %}
 
 {% block content %}
-<script src="{% static 'petPosts/js/index2.js' %}"></script>
+<script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/index2.js' %}"></script>
+  <div class="container">
+  
+  <div class="first">
+  <p> 펫 랭킹 </p>
+  <div class="category-top">
+    <p> 카테고리 선택 </p>
+    <a onclick="onClickCategory({{"0"}})"> 전체 </a>
+    {% for category in categories%}
+ 
+    <a onclick="onClickCategory({{forloop.counter}})"> {{category}}</a>
+    {% endfor %}
+  </div>
+
   <div class="ranking">
       {% for pet in pet_rank%}
-        <p> {{ forloop.counter }}등 </p>
+        <div class="animal" id="{{pet.0.category}}-pet-rank" style ="display:block">
+        <p id="pet-rank"> {{ forloop.counter }}등 </p>
         <p> 펫이름 </p>
-        <p> {{pet.1}}</p>
-        <img src = "{{pet.3.url}}">
+        <p><a href={% url 'pets:showpet' pet.0.id %} > {{pet.1}}</a></p>
+         <img src = "{{pet.3.url}}">
+        </div>
+
       {% endfor %}
   </div>
+</div>
+<div class="second">
+  <p> 내가 팔로우하는 펫들의 피드 </p>
+  {% if user.is_authenticated%}
   <div class="row justify-content-center">
     {% for post in feed %}
+    <div id="post-{{post.id}}">
      <div class="card mt-2 mr-2" style="width: 20rem;">
+
         <div class="card-header">
-          <span>{{ post.pet.name }}</span>
-          {% if post.pet.owner == request.user %}
+          <a href={% url 'petPosts:show' post.id%}> {{ post.pet.name }} </a>       
+        </div>
+        {% for photo in post.photo_set.all%}
+        <img src="{{photo.image.url}}" width="300" height="300"><br>
+        {% endfor %}
+        <div class="card-body">
+          <h5 class="card-text"><a href={% url 'petPosts:show' post.id%}>{{ post.title }}</a></h5>
+        </div>
+        {% if post.pet.owner == request.user.profile %}
             <a onclick="onDeletePost({{post.id}})">삭제</a>
-          </form>
           <a href={% url 'petPosts:update' post.id %} class="btn btn-success">수정</a>
           {% endif %}
-        </div>
-        
-        <img src="{{ post.photo.image.url }}" class="card-img-top" alt="...">
-
-        <div class="card-body">
-          <h5 class="card-text">{{ post.content }}</h5>
-        </div>
-        
         
         <hr style="border: solid 3px gray">
         <!--좋아요 버튼-->
@@ -57,44 +77,40 @@
           {% endif %}
         </a>
         {% else %}
-        <div class="material-icons mdl-badge mdl-badge--overlap" 
-          data-badge="{{ post.like_users.count }}">
-          favorite
-        </div>
+          <div class="material-icons mdl-badge mdl-badge--overlap" 
+            data-badge="{{ post.like_users.count }}">
+            favorite
+          </div>
         {% endif %}
+        </div>
+    </div>
+      <div class="card-body">  
+          <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
+          <p>
+          {% csrf_token %}
+          <input id="post{{post.id}}-comment-input" type="text" name="content" />
+          <button onclick="onAddComment({{post.id}})">댓글 달기</button>
+          <hr>
       </div>
     </div>
-        <div class="card-body">  
-          <!--Comment에 대한 modelform 작성-->
-          <form method="POST" action="{% url 'posts:comment_create' post.id%}" class="d-inline">
-            {% csrf_token %}
-            {% bootstrap_form comment_form %}
-            <button type="submit" class="btn btn-primary" style="float:right">submit</button>
-          </form>
-          <hr>
-          {% for comment in post.comment_set.all %}
-            <strong>{{comment.user}}</strong> <span>{{comment.content}}</span>
-            {% if comment.user == request.user %}
-              <form class="d-inline-block" method="POST" action="{% url 'posts:comment_delete' post.id comment.id %}">
-                {% csrf_token %}
-                <button type="submit" class='btn btn-danger pull-right'>삭제</button>
-              </form>
-            {% endif %}
-          
-          {% empty %} 댓글이 없습니다.  
-          {% endfor %}
-        
-        </div>
-      </div>
     {% endfor %}
   </div>
+  {%else %}
+   <p> 로그인 회원가입을 하여 팔로우하는 펫들을 팔로우해보세요</p>
+  {%endif %}
+
+</div>
+<div class="third">
   {% if user.is_authenticated %}
   <div class="myfollowing">
+      <p> 내가 팔로우하는 펫들 </p>
       {% for pet in following_pets%}
-        <p>{{ pet.name}} </p>
-        <div> {{ forloop.counter }} {{image.url}} </div>
+        <p>{{ forloop.counter }}<a href={% url 'pets:showpet' pet.id %} >{{ pet.name}}</a> </p>
+        <div>  <img src = "{{pet.image.url}}" ></div>
       {% endfor %}
   </div>
   {%endif%}
+  </div>
+  </div>
 {% endblock %}
 
