@@ -4,6 +4,7 @@
   <h1>new pet</h1>
   <form action="{% url 'pets:newpet' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    <a href="{% url 'petPosts:index' %}">home</a>
     <div class="form-group">
       <label>Pet Category</label>
         <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">

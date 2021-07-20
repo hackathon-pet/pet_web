@@ -15,7 +15,7 @@ html {
     margin: -102px 0 0;
     font-family: Oswald, sans-serif !important;
     position: absolute;
-    margin-top: 10px;
+    margin-top: 1.2%;
     left:50%; 
     transform:translateX(-50%);
 }
@@ -26,8 +26,8 @@ html {
     font-family: Roboto,sans-serif;
     display: block;
     font-size: 1.7em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
+    margin-block-start: 10%;
+    margin-block-end: 10%;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
@@ -41,15 +41,15 @@ html {
 }
 
 .group{
-    margin-top: 85px;
+    margin-top: 7%;
     z-index: 0;
     position: relative;
     flex: 1;
     height: 300px;
     background-color: #478ac9;
-    margin-left: 150px;
-    margin-right: 150px;
-    padding: 0 30px;
+    margin-left: 13%;
+    margin-right: 13%;
+    padding: 0 10%;
 }
 div {
     display: block;
@@ -59,7 +59,7 @@ div {
     position: absolute;
     left:50%; 
     transform:translateX(-50%);
-    margin-top: 230px;
+    margin-top: 18%;
 }
 .to-my-info, .to-ranking, .signup, .login{
     color: black;
@@ -83,41 +83,39 @@ html {
     scroll-behavior: smooth;
 }
 .first{
-    margin-left: 20px;
+    margin-left: 3%;
     background-color:white;
     border-style: none;
     background-image: none;
     border-radius: 10px;
     font-style: initial;
     white-space: nowrap;
-    padding: 10px 30px;
+    padding: 2% 4%;
     text-align: center;
-    margin-right: 20px;
-}
-.first, .second, .third{
-    width: 380px!important;
     
 }
+
 .second{
+    margin-left: 3%;
     background-color:white;
     border-style: none;
     background-image: none;
     border-radius: 10px;
     font-style: initial;
     white-space: nowrap;
-    padding: 10px 30px;
+    padding: 2% 4%;
     text-align: center;
 }
 .third{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 3%;
+    margin-right: 5%;
     background-color:white;
     border-style: none;
     background-image: none;
     border-radius: 10px;
     font-style: initial;
     white-space: nowrap;
-    padding: 10px 30px;
+    padding: 2% 2%;
     text-align: center;
 }
 .ranking-title, .my-following-pets, .my-following-feed{
