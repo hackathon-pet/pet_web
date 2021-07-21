@@ -5,6 +5,8 @@
 <link rel="stylesheet" type="text/css" href="{% sass_src 'pets/scss/new.scss' %}">
 {% endblock style %}
 {% block content %}
+  <form action="{% url 'pets:newpet' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 <div class="whole">
 
 
