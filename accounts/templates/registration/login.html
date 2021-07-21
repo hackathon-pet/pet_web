@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 {% load sass_tags %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/login.scss' %}">
@@ -17,6 +19,10 @@
       <a class="mdl-navigation__link" href="{% url 'signup' %}">
         <p>Don't have an account yet?</p>
       </a>
+    <a class="mdl-navigation__link" href="{% provider_login_url 'google' %}">
+      <img src="{% static 'accounts/img/btn_google_signin_light_focus_web@2x.png' %}" style="width: 200px; height: auto;"/>
+    </a>
+    <br>
     </form>
   </div>
 </div>

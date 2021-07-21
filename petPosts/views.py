@@ -67,6 +67,9 @@ def index(request):
                 }
             )
 
+def search(request):
+    pets = Pet.objects.all()
+    return render(request, 'petPosts/search.html', {'pets':pets})
 
 def new(request, id):
     if request.method == 'GET':
