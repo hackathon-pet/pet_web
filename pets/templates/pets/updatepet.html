@@ -1,24 +1,67 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'pets/scss/update.scss' %}">
+{% endblock style %}
 {% block content %}
-    <a href="{% url 'petPosts:index' %}">home</a>
-    <h1>update pet</h1>
-  <form action="{% url 'pets:updatepet' id=pet.id %}" method="POST" enctype="multipart/form-data">
+<div class="whole">
+
+
+
+<div class="inner-box">
+<div class="left">
+  
+  <div class="newpet">Update<br><br><br> PET <br><br><br> INFO</div>
+  <div class="explain"> ▷Pet category <br> ▷Pet name <br>▷Photo<br>▷Introduction </div>
+
+  <div class="inner-button">
+<a class="return"href="{% url 'petPosts:index' %}"><span class="text">Home</span></a>
+<a class="return" href="{% url 'myinfo' %}"><span class="text">My Page</span></a>
+</div>
+  </div>
+  <div class="right">
+  <div class="content">
+    <form action="{% url 'pets:updatepet' id=pet.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>펫 종류 수정</p>
+    <div class="first-line">
+    
     <div class="form-group">
-      <label>Pet Category</label>
+      <label class="right-text">Category</label> <br>
         <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
           {% for x,y in form.fields.category.choices %}
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
           {% endfor %}
         </select>
+         
     </div>
-    <p>이름</p>
-    <input name="name" value={{pet.name}}/> <br/>
-    <input type="file" name="image" value={{pet.image.url}}/>
-    <p>소개</p>
-    <textarea name="introduction" rows="30" cols="50" value={{pet.introduction}}></textarea> <br />
+    <div class="pet-name">
+    <div class="right-text">name</div>
+    <input placeholder="수정할 펫이름을 적어주세요" name="name" value={{pet.name}}>
+    </div>
+    </div>
+    <br>
+    <br>
+    <div class="pet-photo">
+    <div class="right-text">photo</div>
+    <input class="file-upload" type="file" name="image"value={{pet.image.url}} >
+    </div>
+    <br>
+    <div class="intro-group">
+    <div class="introduction">    
+    <div class="right-text" >한줄 소개</div>
+     </div>
+    <div class="pet-intro">
+
+    <textarea placeholder="내 펫 한 줄 소개해주세요" name="introduction" rows="10" value={{pet.introduction}}></textarea> <br />
+    </div>
+    </div>
     <input type="submit" value="submit" />
+
+    <br>
   </form>
+  </div>
+  </div>
 {% endblock content %}
+</div>
+</div>

@@ -7,20 +7,32 @@
 <link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/search.scss' %}">
 {% endblock style %}
 
-  <br>
+
+  <div class="search-head">
   <div class="search-box">
+  <div class="search-pet">
+   SEARCH
+    </div>
+    <div class="pet-search">
     <input onkeyup="filter()" type="text" id="value" placeholder="펫 이름을 입력해주세요">
+    </div>
   </div>
-  <br>
-  <br>
+  </div>
+
   <div class="pet-container">
   {% for pet in pets %}
+  <div class="each-pet">
     <a class="pet" href="{% url 'pets:showpet' pet.id %}">
-    <p class="name">{{pet.name}}</p>
-    <br>
-    <img src="{{ pet.image.url }}"><br>
-    </a>
 
+    <div class="name">{{pet.name}}</div>
+    <div class="move-class">
+    <a class="move" href="{% url 'pets:showpet' pet.id %}"><span class="text">MORE </span></a>
+    </div>
+
+    <hr>
+    <img class="img" src="{{ pet.image.url }}"><br>
+    </a>
+  </div>
   {% endfor %}
   </div>
 
@@ -30,7 +42,7 @@
 	  var value, name, pet, i;
 
 	  value = document.getElementById("value").value.toUpperCase();
-	  pet = document.getElementsByClassName("pet");
+	  pet = document.getElementsByClassName("each-pet");
 
 	  for(i=0;i<pet.length;i++){
       name = pet[i].getElementsByClassName("name");
