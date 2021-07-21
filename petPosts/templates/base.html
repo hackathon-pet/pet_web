@@ -11,6 +11,11 @@
   {% endblock style %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css" />
+  <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script type="module" src="{% static 'petPosts/js/base.js' %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
@@ -23,7 +28,7 @@
 <body>
   <!-- Always shows a header, even in smaller screens. -->
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
+      <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
         <a class="mdl-navigation__link" href="{% url 'petPosts:index' %}">
@@ -35,15 +40,14 @@
         <nav class="mdl-navigation mdl-layout--large-screen-only">
           {% if user.is_authenticated %}
           <div style="padding-right: 10px; border-right: 1px solid white;">{{ user.get_username }}님, 안녕하세요</div>
-          <div id="user-like-count" style="padding-left: 10px">
-            내가 좋아한 글 : {{ user.like_posts.count }}개
-          </div>
+        
           <a class="mdl-navigation__link" href="{% url 'logout' %}">로그아웃</a>
-          <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보, 펫 추가하기</a>
+          <a class="mdl-navigation__link" href="{% url 'myinfo' %}">내 정보, 펫 관리</a>
           {% else %}
           <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
           <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>
           {% endif %}
+          <a class="mdl-navigation__link" href="{% url 'petPosts:search' %}">펫 검색하기</a>
         </nav>
       </div>
     </header>
@@ -66,26 +70,12 @@
         {% endblock content %}
       </div>
     </main>
-    <div id="log-out-modal">
-      <div class="modal-header">
-        오늘은 총&nbsp;<span class="viewed-post-count">0</span>개의 글을 읽으셨네요!
-      </div>
-      <ul class="modal-content">
-      </ul>
-      <div class="modal-footer">
-        <button class="confirm">
-          로그아웃
-        </button>
-        <button class="cancel">
-          취소
-        </button>
-      </div>
-    </div>
-    <footer>
-      <div class="copyright-container">
-        <img class="logo" src="{% static 'petPosts/img/likelion_white_logo.png' %}">
-        <span id="copyright-text" class="copyright">SNU LIKELION © 2021</span>
-    </footer>
+   
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b3de"><div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">@P.E.T<br>Upload your pets freely and look around other pets
+        </p>
+      </div></footer>
   </div>
 </body>
 

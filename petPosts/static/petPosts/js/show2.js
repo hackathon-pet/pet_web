@@ -55,7 +55,6 @@ const onLikePost = async (postId) => {
       const response = await axios.delete(`/posts/${postId}/delete/`);
       location.replace(`/pets/${petId}/`);
     }
-
   }
 
   const onSetPostLikeCount = async (likeCount) => {

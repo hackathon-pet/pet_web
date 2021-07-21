@@ -9,16 +9,18 @@
     <form id="signup-form" method="POST" action="{%url 'signup' %}">
     {% csrf_token %}
     <h1> Sign Up </h1>
-    <input name="username" type="text" placeholder="Enter your username" value="">
+    Username:<input name="username" type="text" placeholder="Enter your username" value="">
     <br>
+    Password:
     <input name="password1" type="password" placeholder="Enter your password" value="">
     <br>
-    <input name="password2" type="password" placeholder="Enter your password once more" value="">
+    Confirm Password:
+    <input name="password2" type="password" placeholder="Confirm your password" value="">
     <br>
-    <br>
-    <br>
+    E-mail :
     <input name="email" type="text" placeholder="Enter your e-mail" value="">
     <br>
+    Introductions:
     <input name="introduction" type="text" placeholder="Introduce yourself" value="">
     <br>
     <br>

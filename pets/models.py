@@ -7,8 +7,8 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
 
 class Pet(models.Model):
-  owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
   name = models.CharField(max_length=20, blank=True)
+  owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
   PET_CHOICES = (
       ('p1', '강아지'),
       ('p2', '고양이'),
@@ -35,7 +35,7 @@ class Pet(models.Model):
   follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
 
   def __str__(self):     
-    return f'id={self.id}, name={self.name}'
+    return self.name
 
 class PetForm(forms.ModelForm):
 
