@@ -14,6 +14,9 @@
   <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
   <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -47,6 +50,7 @@
           <a class="mdl-navigation__link" href="{% url 'signup' %}">회원가입</a>
           <a class="mdl-navigation__link" href="{% url 'login' %}">로그인</a>
           {% endif %}
+          <a class="mdl-navigation__link" href="{% url 'petPosts:search' %}">펫 검색하기</a>
         </nav>
       </div>
     </header>

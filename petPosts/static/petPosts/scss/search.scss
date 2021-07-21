@@ -1,0 +1,8 @@
+.pet-container {
+	display: flex;
+	flex-wrap: wrap;
+
+		&.hide {
+			display: none;
+		}
+}
