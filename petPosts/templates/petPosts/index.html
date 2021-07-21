@@ -22,7 +22,7 @@
           <br>
           <div class="info">
         {% if user.is_authenticated%}
-            <button class="to-my-info"  onclick="location.href='accounts/myinfo'"> My pets</a>
+            <button class="to-my-info"  onclick="location.href='/accounts/myinfo'"> My pets</a>
             <button class="to-ranking" onclick="location.href='#target'"> See Ranking</a>
           {% else%}
             <a class="signup" href={% url 'signup'%}> 회원가입</a>

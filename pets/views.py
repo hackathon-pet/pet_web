@@ -35,10 +35,12 @@ def updatepet(request, id):
     return render(request, 'pets/updatepet.html', {'pet':pet, 'form': form})
   elif request.method == 'POST':
     pet = Pet.objects.filter(id=id)
+    pet_ = Pet.objects.get(pk=id)
     name = request.POST['name']
     category = request.POST['category']
     image = request.FILES['image']
     introduction = request.POST['introduction']
+    print(pet_.image.path)
     owner=request.user.profile
     pet.update(name=name, image=image, introduction=introduction, owner=owner, category = category)
     return redirect('pets:showpet', id=id)
