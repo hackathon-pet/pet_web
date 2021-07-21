@@ -4,6 +4,7 @@
 {% load sass_tags %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{% sass_src 'pets/scss/show.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'pets/scss/showpetpost.scss' %}">
 {% endblock style %}
 
 {% block content %}
@@ -140,19 +141,24 @@
 </div>
 
 
-
 <br />
 <div id="target"> </div>
-<div>
-
+<div class="posts">
 {% for post in posts %}
-<a href="{% url 'petPosts:show' id=post.id %}">
-  <p>제목: {{post.title}}</p>
-  <p>작성일: {{ post.created_at }}</p>
-  {% for photo in post.photo_set.all %}
-    <img src="{{photo.image.url}}" width="150"><br>
-  {% endfor %}
-</a>
+  <div class="post-thumb">
+  <a href="{% url 'petPosts:show' id=post.id %}" style="text-decoration: none;">
+    <div class="photo">
+    {% for photo in post.photo_set.all %}
+      <img src="{{photo.image.url}}"><br>
+    </div>
+    {% endfor %}
+    <div class="text">
+      <div class="title">{{post.title}}</div>
+      <div class="date">{{ post.created_at }}</div>
+    </div>
+  </a>
+  </div>
 {% endfor %}
 </div>
+
 {% endblock content %}
