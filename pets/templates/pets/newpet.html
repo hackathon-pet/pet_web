@@ -24,6 +24,7 @@
   </div>
   <div class="right">
   <div class="content">
+  <form action="{% url 'pets:newpet' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="first-line">
     
@@ -34,7 +35,7 @@
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
           {% endfor %}
         </select>
-         
+
     </div>
     <div class="pet-name">
     <div class="right-text">name</div>
@@ -57,7 +58,7 @@
     <textarea placeholder="내 펫 한 줄 소개해주세요" name="introduction" rows="10" ></textarea> <br />
     </div>
     </div>
-    <input type="submit" value="submit" />
+    <input type="submit" value="submit"/>
 
     <br>
   </form>
