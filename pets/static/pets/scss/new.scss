@@ -3,18 +3,23 @@
 
 }
 .left{
+    padding-top: 5%;
+    padding-bottom: 5%;
     background-color: #db545a;
     width: 30%;
+    padding-left: 4%;
     box-shadow: 5px 5px 5px #000;
     display: flex;
+    padding-right: 5%;
     flex-direction: column;
     justify-content:space-evenly;
 }
 .right{
-    
+    padding-top: 5%;
     background-color: #d9d9d9;
     width: 70%;
     box-shadow: 5px 5px 5px #000;
+    padding-bottom: 5%;
 }
 .inner-box{
     
@@ -56,7 +61,7 @@
 .first-line{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+
     margin-top: 5%;
 }
 .pet-name{
@@ -65,14 +70,34 @@
 .pet-photo{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+
 }
 .pet-intro{
     display: flex;
-    justify-content: center;
+
 }
 .introduction{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+
+.right{
+    padding-left: 10%;;
+}
+.right-text{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    color:rgb(0, 0, 0);
+}
+.selectpicker{
+    width: 110%;
+}
+.file-upload{
+    margin-left: 10%;
+    letter-spacing: 1px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-weight: lighter;
 }

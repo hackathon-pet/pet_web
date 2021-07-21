@@ -21,12 +21,12 @@
 </div>
   </div>
   <div class="right">
- 
+  <div class="content">
     {% csrf_token %}
     <div class="first-line">
     
     <div class="form-group">
-      <label>Pet Category</label> <br>
+      <label class="right-text">Category</label> <br>
         <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
           {% for x,y in form.fields.category.choices %}
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
@@ -35,20 +35,20 @@
          
     </div>
     <div class="pet-name">
-    <div class="right-text">펫 이름</div>
+    <div class="right-text">name</div>
     <input name="name">
     </div>
     </div>
     <br>
     <br>
     <div class="pet-photo">
-    <div class="right-text">펫 사진</div>
-    <input type="file" name="image">
+    <div class="right-text">photo</div>
+    <input class="file-upload" type="file" name="image">
     </div>
     <br>
     <div class="intro-group">
     <div class="introduction">    
-    <div class="right-text">펫 소개</div>
+    <div class="right-text">한줄 소개</div>
      </div>
     <div class="pet-intro">
 
@@ -59,6 +59,7 @@
 
     <br>
   </form>
+  </div>
   </div>
 {% endblock content %}
 </div>
