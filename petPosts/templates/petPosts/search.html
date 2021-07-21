@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/search.scss' %}">
+{% endblock style %}
+
+  <br>
+  <div class="search-box">
+    <input onkeyup="filter()" type="text" id="value" placeholder="펫 이름을 입력해주세요">
+  </div>
+  <br>
+  <br>
+  <div class="pet-container">
+  {% for pet in pets %}
+    <a class="pet" href="{% url 'pets:showpet' pet.id %}">
+    <p class="name">{{pet.name}}</p>
+    <br>
+    <img src="{{ pet.image.url }}"><br>
+    </a>
+
+  {% endfor %}
+  </div>
+
+  <script>
+  function filter(){
+
+	  var value, name, pet, i;
+
+	  value = document.getElementById("value").value.toUpperCase();
+	  pet = document.getElementsByClassName("pet");
+
+	  for(i=0;i<pet.length;i++){
+      name = pet[i].getElementsByClassName("name");
+      if(name[0].innerHTML.toUpperCase().indexOf(value) > -1){
+		  pet[i].style.display = "flex";
+      }else{
+		  pet[i].style.display = "none";
+      }
+	  }
+  }
+  </script>
+
+{% endblock content %}
