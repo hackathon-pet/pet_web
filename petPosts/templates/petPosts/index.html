@@ -148,10 +148,6 @@
           <strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
       </div>
 
-          {% csrf_token %}
-          <input id="post{{post.id}}-comment-input" type="text" name="content" />
-          <button onclick="onAddComment({{post.id}})">댓글 달기</button>
-          <hr>
 
 
     </div>
@@ -190,6 +186,8 @@
       </div>
       {% endfor %}
   </div>
+  {%else %}
+   <p> 로그인 회원가입을 하여 팔로우하는 펫들을 팔로우해보세요</p>
   {%endif%}
   </div>
   </div>
