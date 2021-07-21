@@ -1,29 +1,67 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'pets/scss/new.scss' %}">
+{% endblock style %}
 {% block content %}
-  <h1>new pet</h1>
+<div class="whole">
+
+
+
+<div class="inner-box">
+<div class="left">
+  
+  <div class="newpet">Add<br><br><br> your <br><br><br> pet</div>
+  <div class="explain"> ▷Pet category <br> ▷Pet name <br>▷Photo<br>▷Introduction </div>
+
+  <div class="inner-button">
+<a class="return"href="{% url 'petPosts:index' %}"><span class="text">Home</span></a>
+<a class="return" href="{% url 'myinfo' %}"><span class="text">My Page</span></a>
+</div>
+  </div>
+  <div class="right">
+  <div class="content">
   <form action="{% url 'pets:newpet' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <a href="{% url 'petPosts:index' %}">home</a>
+    <div class="first-line">
+    
     <div class="form-group">
-      <label>Pet Category</label>
+      <label class="right-text">Category</label> <br>
         <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
           {% for x,y in form.fields.category.choices %}
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
           {% endfor %}
         </select>
+
     </div>
-    <p>펫 이름</p>
+    <div class="pet-name">
+    <div class="right-text">name</div>
     <input name="name">
+    </div>
+    </div>
     <br>
     <br>
-    <p>펫 사진</p>
-    <input type="file" name="image">
+    <div class="pet-photo">
+    <div class="right-text">photo</div>
+    <input class="file-upload" type="file" name="image">
+    </div>
     <br>
-    <br>
-    <p>펫 소개</p>
-    <textarea name="introduction" rows="30" cols="50"></textarea> <br />
-    <input type="submit" value="submit" />
+    <div class="intro-group">
+    <div class="introduction">    
+    <div class="right-text">한줄 소개</div>
+     </div>
+    <div class="pet-intro">
+
+    <textarea name="introduction" rows="10" cols="50"></textarea> <br />
+    </div>
+    </div>
+    <input type="submit" value="submit"/>
+
     <br>
   </form>
+  </div>
+  </div>
 {% endblock content %}
+</div>
+</div>

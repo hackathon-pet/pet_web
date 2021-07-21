@@ -1,41 +1,101 @@
-<h2>
-  Profile
-</h2>
-<div>
-  <p>
-    email :
-    {{profile.email}}
-  </p>
-  <p>
-    introduction :
-    {{profile.introduction}}
-  </p>
-  {% if request.user == profile.user %}
-  <a class="mdl-navigation__link" href="{% url 'editmyinfo' %}">내 정보 수정하기</a>
-  {% endif %}
-</div>
+{% extends 'base.html' %}
 
+{% block content %}
 
-<h2>
-  Pets
-</h2>
-<div>
-  {% for pet in pets %}
-    <a href="{% url 'pets:showpet' pet.id %}">
-    <p>{{pet.name}}</p>
-    <p>{{pet.get_category_display}}</p>
-    <p>{{pet.introduction}}</p>
-    <img src="{{ pet.image.url }}"><br>
-    </a>
-  {% endfor %}
-  {% if request.user == profile.user %}
-  <a href="{% url 'pets:newpet' %}">
-    Add your lovely pet!
-  </a>
-  {% endif %}
-  <br>
-  <br>
-  <a href="{% url 'petPosts:index' %}">
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/myinfo.scss' %}">
+{% endblock style %}
+<div class="hello"> HELLO! </div>
+<div class="welcome"> Welcome to P.E.T 
+<a  class="home-button" href="{% url 'petPosts:index' %}">
     Back to Home
+  </a></div>
+
+<div class="whole">
+<div class="profile">
+<div class="profile-text">
+  MY PROFILE
+</div>
+<div>
+  <div class="profile-title"> name </div>
+  <div class="profile-content"> {{profile.user.username}} </div>
+  <div class="profile-title"> email </div>
+  <div class="profile-content">
+    {{profile.email}}
+  </div>
+   <div class="profile-title"> Introduction </div>
+  <div class="profile-content">
+
+    {{profile.introduction}}
+  </div>
+  <div class="profile-title"> # of Pets </div>
+  <div class="profile-content">
+
+    {{pets.count}}
+  </div>
+  {% if request.user == profile.user %}
+  <div class="edit-container">
+  <a class="edit" href="{% url 'editmyinfo' %}">Edit my info</a>
+  </div>
+  {% endif %}
+</div>
+</div>
+<div class="pets">
+
+<div class="pet-text">
+  MY PETS
+</div>
+  {% if request.user == profile.user %}
+  <a class="add-pet" href="{% url 'pets:newpet' %}">
+    <div class="add-text"> Add your lovely pet! </div>
+  </a>
+  {% endif %}
+
+<div class="pet-container">
+  {% for pet in pets %}
+    <div class="each-pet">
+
+    <div class="pet-name">{{pet.name}} <br>
+    </div>
+    <a  class="link"href="{% url 'pets:showpet' pet.id %}">
+      <p class="more" ><span class="text">MORE</span></p>
+    </a>
+    <div class="circle">
+    <a href="{% url 'pets:showpet' pet.id %}">
+  <img  class="img" src="{{ pet.image.url }}">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="enable-background:new -580 439 577.9 194;"
+     xml:space="preserve">  
+    <circle cx="50" cy="50" r="40" />
+  </svg>
   </a>
 </div>
+    
+    <div class="category">
+    <div class="exp"> Category: </div> 
+    <div class="detail">{{pet.get_category_display}}</div></div>
+    
+    <div class="category">
+    <div class="exp"> Introduction: </div> 
+    <div class="detail">{{pet.introduction}}</div></div>
+    </div>
+  {% endfor %}
+  <div class="each-pet">
+  
+  <div class="pet-name" style="margin-top: 17%">Add your pet</div>
+
+<a href="{% url 'pets:newpet' %}">
+<svg class="u-svg-content" viewBox="0 0 128 128" id="svg-90c1"><g><circle cx="64" cy="64" fill="#ff595e" r="45"></circle><path d="m87.16 60h-19.16v-19.16a4 4 0 0 0 -8 0v19.16h-19.16a4 4 0 0 0 0 8h19.16v19.16a4 4 0 0 0 8 0v-19.16h19.16a4 4 0 0 0 0-8z" fill="#fffae3"></path>
+</g></svg>
+</a>
+
+  </div>
+  <br>
+  <br>
+  
+</div>
+</div>
+</div>
+
+{% endblock content %}
