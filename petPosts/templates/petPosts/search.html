@@ -25,10 +25,7 @@
     <a class="pet" href="{% url 'pets:showpet' pet.id %}">
 
     <div class="name">{{pet.name}}</div>
-    <div class="move-class">
-    <a class="move" href="{% url 'pets:showpet' pet.id %}"><span class="text">MORE </span></a>
-    </div>
-
+  
     <hr>
     <img class="img" src="{{ pet.petimage.image.url }}"><br>
     </a>
