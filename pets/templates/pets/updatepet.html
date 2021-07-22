@@ -21,11 +21,11 @@
 </div>
   </div>
   <div class="right">
+
   <div class="content">
     <form action="{% url 'pets:updatepet' id=pet.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="first-line">
-    
     <div class="form-group">
       <label class="right-text">Category</label> <br>
         <select name="category" class="selectpicker" data-title="Select Category" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
@@ -33,7 +33,6 @@
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
           {% endfor %}
         </select>
-         
     </div>
     <div class="pet-name">
     <div class="right-text">name</div>
@@ -44,7 +43,14 @@
     <br>
     <div class="pet-photo">
     <div class="right-text">photo</div>
-    <input class="file-upload" type="file" name="image"value={{pet.image.url}} >
+    <input class="file-upload" type="file" name="image" id="petImage">
+    <script>
+    var fileCheck = document.getElementById("petImage").value;
+    if(!fileCheck){
+        alert("사진을 첨부해 주세요");
+        return false;
+    }
+    </script>
     </div>
     <br>
     <div class="intro-group">
@@ -52,7 +58,6 @@
     <div class="right-text" >한줄 소개</div>
      </div>
     <div class="pet-intro">
-
     <textarea placeholder="내 펫 한 줄 소개해주세요" name="introduction" rows="10" value={{pet.introduction}}>{{pet.introduction}}</textarea> <br />
     </div>
     </div>

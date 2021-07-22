@@ -7,15 +7,6 @@ const follow = async (petID) => {
 
   }
 
-  const onDeletePet = async (petID) => {
-
-    const confirmDeletePet = confirm('펫을 정말 삭제하시겠습니까?');
-    if(confirmDeletePet) {
-      const response = await axios.delete(`/pets/${petID}/delete/`);
-      location.replace(`/accounts/myinfo/`);
-    }
-  }
-
   const nofollow=async() =>{
     alert('팔로우를 하려면 회원가입 또는 로그인을 하세요');
   }

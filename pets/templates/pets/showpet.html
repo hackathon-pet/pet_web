@@ -13,7 +13,7 @@
   <a href="{% url 'petPosts:index' %}">home</a>
   <div class="pet-image-and-name">
   <div class="image">
-  <img class="pet-img" src="{{pet.image.url}}" width="600">
+  <img class="pet-img" src="{{pet.petimage.image.url}}" width="600">
   </div>
   <div class="pet-div">
   <p id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</p>
@@ -22,7 +22,6 @@
   <div class="post-owenr">
   <a class="post" href="{% url 'petPosts:new' id=pet.id %}">포스트 작성</a>
   <a class="post" href="{% url 'pets:updatepet' id=pet.id %}">펫 수정</a>
-  <a onclick="onDeletePet({{pet.id}})">펫 삭제</a>
   </div>
 {% endif %}
   </div>

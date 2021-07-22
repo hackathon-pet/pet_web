@@ -15,7 +15,7 @@
 <a href="{% url 'pets:showpet' id=post.pet.id %}">펫 페이지로 돌아가기</a>
 <section class="feed">
   <div class="pet-title">
-  <img class="pet-image" src="{{post.pet.image.url}}"><br>
+  <img class="pet-image" src="{{post.pet.petimage.image.url}}"><br>
   <span class="petname">{{post.pet.name}}</span>
   </div>
   <div class="feedzone">
