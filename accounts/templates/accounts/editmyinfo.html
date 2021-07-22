@@ -1,15 +1,35 @@
-<h1> Edit My info. </h1>
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/editmyinfo.scss' %}">
+{% endblock style %}
+
+<div class="whole">
+<div class="profile">
 <form method="POST" action="{%url 'editmyinfo' %}">
-    {% csrf_token %}
-    E-mail:
-    <br>
-    <input name="email" type="text" value="{{user.profile.email}}">
-    <br>
-    <br>
-    Introductions:
-    <br>
+{% csrf_token %}
+<div class="profile-text">
+  Edit My Info
+</div>
+<div>
+  <div class="profile-title"> E-mail </div>
+  <div class="profile-content"> 
+    <input name="email" type="text" value="{{user.profile.email}}"> 
+  </div>
+  <div class="profile-title"> Introductions </div>
+  <div class="profile-content">
     <input name="introduction" type="text" value="{{user.profile.introduction}}">
-    <br>
-    <br>
-    <input type="submit" value="update my info">
+  </div>
+  <div class="edit-container">
+  <input class="edit" type="submit" value="update my info">
+  </div>
+</div>
 </form>
+</div>
+</div>
+
+{% endblock content %}

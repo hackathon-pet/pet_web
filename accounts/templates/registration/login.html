@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 {% load static %}
 {% load socialaccount %}
 {% providers_media_js %}
@@ -16,6 +20,7 @@
       <p><input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" placeholder="Enter your username" maxlength="150" required="" id="id_username"></p>
       <p><input type="password" name="password" autocomplete="current-password" placeholder="Enter your password" required="" id="id_password"></p>-->
       <input id="login-button" type="submit" value="Login">
+      <br>
       <a class="mdl-navigation__link" href="{% url 'signup' %}">
         <p>Don't have an account yet?</p>
       </a>
@@ -26,3 +31,5 @@
     </form>
   </div>
 </div>
+
+{% endblock content %}
