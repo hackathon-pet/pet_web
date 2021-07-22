@@ -12,7 +12,7 @@ const onSetCommentCount = (commentCount) => {
 const getCommentElement = (postId, commentId, commentCount, comment, createdTime, author) => {
   var commentElement = document.createElement('p');
   commentElement.id = `post${postId}-comment${commentId}`;
-
+  commentElement.style="margin-left: 5%";
 
   commentElement.innerHTML = `${author}: ${comment} &nbsp; &nbsp; ${createdTime}
                               <a id="comment${commentId}-like-button" onclick="onLikeComment(${commentId})">

@@ -32,18 +32,22 @@
       <img src="{{photo.image.url}}" width="500"><br>
     {% endfor %}
     <div>Content: {{ post.content }}</div>
+  
+    </div>
 
     {% if post.pet.owner == request.user.profile %}
-    <div class="author">
-    <a class="edit" href="{% url 'petPosts:update' id=post.id %}">
-  <span style="color: white;">수정</span></a>
-
+      <div class="author">
+    <div>
+    <a style="color: white" class="edit" href="{% url 'petPosts:update' id=post.id %}">
+    수정</a>
+    </div>
+    <div>
     <a class="edit" id="post-delete" onclick="onDeletePost({{post.id}}, {{post.pet.id}})">
     <span style="color: white;">삭제</span></div></a>
     </div>
+    </div>
     {% endif %}
 
-    </div>
   <div class="commentzone">
   <div class="comments">
   <div class="info">
@@ -94,8 +98,9 @@
 </div>
   <div id="{{post.id}}-comment-list">
     {% for comment in post.comment_set.all|dictsortreversed:"like_users.count" %}
-    <div class="comment">
+ 
       <p id="post{{post.id}}-comment{{comment.id}}">
+         <div class="comment">
         <div class="comment-author"> {{ comment.author }} : </div>
         <div class="comment-content"> {{ comment.content }}</div>
         <div class="comment-date">{{ comment.created_at|date:'Y년 M d일 H:m'}}</div>
@@ -107,8 +112,9 @@
         {% if request.user == comment.author %}
           <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">댓글 삭제</a>
         {% endif %}
+          </div>
       </p>
-    </div>
+  
     {% endfor %}
   </div>
 </section>
