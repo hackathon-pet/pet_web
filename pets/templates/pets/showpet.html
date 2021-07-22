@@ -148,9 +148,11 @@
   <a href="{% url 'petPosts:show' id=post.id %}" style="text-decoration: none;">
     <div class="photo">
     {% for photo in post.photo_set.all %}
+      {% if forloop.first %}
       <img src="{{photo.image.url}}"><br>
-    </div>
+      {%endif%}
     {% endfor %}
+    </div>
     <div class="text">
       <div class="title">{{post.title}}</div>
       <div class="date">{{ post.created_at }}</div>
