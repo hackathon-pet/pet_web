@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth  
 from django.shortcuts import redirect 
 from .models import Profile
-from pets.models import Pet, Follow
+from pets.models import Pet, Follow, Petimage
 
 def signup(request):
   if request.method == 'POST':

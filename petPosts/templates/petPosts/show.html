@@ -4,6 +4,8 @@
 {% block style %}
 
 <link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/show.scss' %}">
+
+
 {% endblock style %}
 {% load static %}
 {% block js %}
@@ -13,10 +15,11 @@
 <script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/show2.js' %}"></script>
 <div>
 
-<section class="feed">
+
+
   <div class="pet-intro">
   <div class="pet-photo">
-  <img class="pet-image" src="{{post.pet.image.url}}" width="500">
+  <img class="pet-image" src="{{post.pet.petimage.image.url}}" width="500">
   </div>
   <div class="petname">{{post.pet.name}}</div>
   <div class="right-component">
@@ -24,36 +27,17 @@
 <a class="back" href="{% url 'pets:showpet' id=post.pet.id %}"><span class="text">BACK TO PET PAGE</span></a>
   </div>
   </div>
-  <div class="feedzone">
+  <section class="feed">
+      <div class="feedzone">
   <div class="postzone">
     <div id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
     <div class="post-date" >{{ post.created_at }}</div>
+
     {% for photo in post.photo_set.all%}
-      <img src="{{photo.image.url}}" width="500"><br>
+      <img src="{{photo.image.url}} " width="50%"><br>
     {% endfor %}
-    <div>Content: {{ post.content }}</div>
-  
-    </div>
 
-    {% if post.pet.owner == request.user.profile %}
-      <div class="author">
-    <div>
-    <a style="color: white" class="edit" href="{% url 'petPosts:update' id=post.id %}">
-    수정</a>
-    </div>
-    <div>
-    <a class="edit" id="post-delete" onclick="onDeletePost({{post.id}}, {{post.pet.id}})">
-    <span style="color: white;">삭제</span></div></a>
-    </div>
-    </div>
-    {% endif %}
-
-  <div class="commentzone">
-  <div class="comments">
-  <div class="info">
-  <div class="likes-and-comment">
-    <div class="like">
-      <div class="like-container">
+    <div class="like-container">
         {% if user.is_authenticated %}
         <a class="material-icons mdl-badge mdl-badge--overlap"
           data-badge="{{ post.like_users.count }}"
@@ -72,39 +56,29 @@
         </div>
         {% endif %}
       </div>
-    <div class="comment-count"> <strong>좋아요가 {{post.like_users.count}}개 있습니다</strong></div>
-    </div>
-    <div class="like">
-   <div class="icon">
-<svg class="u-svg-content" viewBox="0 0 343.6 343.6" x="0px" y="0px" id="svg-9a7d" style="enable-background:new 0 0 343.6 343.6;"><path style="fill:#7FD0FF;" d="M294.8,69c-3.2-22-22.8-39.2-45.6-39.2H54.4C28.8,29.8,8,50.6,8,76.2v90.4c0,23.6,17.6,43.2,40.4,46  L294.8,69z"></path><path style="fill:#C0EAFF;" d="M33.2,166.2V75.8c0-25.6,20.8-46.4,46.4-46.4H54.8c-25.6,0-46.4,20.8-46.4,46.4v90.4  c0,23.6,17.6,43.2,40.4,46l8.8-5.2C43.2,199,33.2,183.8,33.2,166.2z"></path><path style="fill:#FFD92E;" d="M192.4,251.8l-81.2,62.4v-62.4H94.8c-25.6,0-46.4-20.8-46.4-46.4V115c0-25.6,20.8-46.4,46.4-46.4  h194.4c25.6,0,46.4,20.8,46.4,46.4v90.4c0,25.6-20.8,46.4-46.4,46.4L192.4,251.8L192.4,251.8z"></path><path style="fill:#FFE780;" d="M140,292.2v-40.4h-16.4c-25.6,0-46.4-20.8-46.4-46.4V115c0-25.6,20.8-46.4,46.4-46.4H94.8  c-25.6,0-46.4,20.8-46.4,46.4v90.4c0,25.6,20.8,46.4,46.4,46.4h16.4v62.4L140,292.2z"></path><g><path style="fill:#331800;" d="M301.6,62.2c-6-23.6-28-40.8-52.4-40.8H54.4C24.4,21.4,0,45.8,0,75.8v90.4c0,25.6,18,47.6,42.4,52.8   c6,23.2,27.6,40.8,52.8,40.8h8v54.4c0,3.2,1.6,6,4.4,7.2c1.2,0.4,2.4,0.8,3.6,0.8c1.6,0,3.6-0.4,4.8-1.6l78.8-60.8h94.4   c30,0,54.4-24.4,54.4-54.4V115C343.6,89.4,325.6,67.8,301.6,62.2z M16.4,166.2V75.8c0-21.2,17.2-38.4,38.4-38.4h194.4   c15.6,0,29.2,9.6,35.2,23.2H95.2c-30,0-54.4,24.4-54.4,54.4v86.4C26.4,195.8,16.4,182.2,16.4,166.2z M327.6,205.4   c0,21.2-17.2,38.4-38.4,38.4h-96.8c-1.6,0-3.6,0.4-4.8,1.6l-68,52.4v-46c0-4.4-3.6-8-8-8H95.2c-21.2,0-38.4-17.2-38.4-38.4V115   c0-21.2,17.2-38.4,38.4-38.4h194.4c21.2,0,38.4,17.2,38.4,38.4v90.4H327.6z"></path><path style="fill:#331800;" d="M275.2,112.6h-166c-4.4,0-8,3.6-8,8s3.6,8,8,8h165.6c4.4,0,8-3.6,8-8   C283.2,116.2,279.6,112.6,275.2,112.6z"></path><path style="fill:#331800;" d="M275.2,148.2h-166c-4.4,0-8,3.6-8,8s3.6,8,8,8h165.6c4.4,0,8-3.6,8-8   C283.2,151.8,279.6,148.2,275.2,148.2z"></path><path style="fill:#331800;" d="M275.2,183.4h-166c-4.4,0-8,3.6-8,8s3.6,8,8,8h165.6c4.4,0,8-3.6,8-8   C283.2,187,279.6,183.4,275.2,183.4z"></path>
-</g></svg>
-</div>
-    <div id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
-    </div>
-    </div>
-    </div>
-    <div class="comment-write">
 
+    <div class="post-content">{{ post.content }}</div>
+    {% if post.pet.owner == request.user.profile %}
+    <div class="edit">
+    <a href="{% url 'petPosts:update' id=post.id %}">수정하기</a>
+    <a id="post-delete" onclick="onDeletePost({{post.id}}, {{post.pet.id}})">삭제하기</a>
+    </div>
+    {% endif %}
+    </div>
+  <div class="commentzone">
+  <div class="comments">
+    <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
+    <p>
     {% csrf_token %}
-   
-    <input id="post{{post.id}}-comment-input" type="text" name="content" placeholder"댓글 남기기" />
-   <button class="comment-button" onclick="onAddComment({{post.id}})">댓글 달기</button>
-
-  </div>
-  </div>
-
-</div>
-</div>
-</div>
-  <div id="{{post.id}}-comment-list">
+    <input class="input" id="post{{post.id}}-comment-input" type="text" name="content" />
+  <button class="button" onclick="onAddComment({{post.id}})">댓글 달기</button>
+  <div id="{{post.id}}-comment-list" class="list">
     {% for comment in post.comment_set.all|dictsortreversed:"like_users.count" %}
- 
-      <p id="post{{post.id}}-comment{{comment.id}}">
-         <div class="comment">
-        <div class="comment-author"> {{ comment.author }} : </div>
-        <div class="comment-content"> {{ comment.content }}</div>
-        <div class="comment-date">{{ comment.created_at|date:'Y년 M d일 H:m'}}</div>
-        {% if user.is_authenticated %}
+    <div id="post{{post.id}}-comment{{comment.id}}">
+      <div class="comment">
+      <div>
+      {{ comment.author }}: {{ comment.content }} &nbsp; &nbsp; {{ comment.created_at|date:'Y년 M d일 H:m'}}
+                             {% if user.is_authenticated %}
           <a id="comment{{comment.id}}-like-button" onclick="onLikeComment({{comment.id}})">
             {{ comment.like_users.count }} Likes
           </a>
@@ -112,9 +86,16 @@
         {% if request.user == comment.author %}
           <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">댓글 삭제</a>
         {% endif %}
-          </div>
-      </p>
+
+        </div>
+                             
+        </div>
   
+
+        </div>
+      </div>
+    </div>
+
     {% endfor %}
   </div>
 </section>
