@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Pet, PetForm, Follow
+from .models import Pet, PetForm, Follow, Petimage
 from petPosts.models import Post
 from django.db.models import Count
 from django.http import JsonResponse
@@ -12,10 +12,14 @@ def newpet(request):
   elif request.method == 'POST': 
     name = request.POST['name']
     category = request.POST['category']
-    image = request.FILES['image']
     introduction = request.POST['introduction']
     owner=request.user.profile
-    pet = Pet.objects.create(name=name, image=image, introduction=introduction, owner=owner, category = category)
+    pet = Pet.objects.create(name=name, introduction=introduction, owner=owner, category = category)
+    pet.save()
+    petImage = Petimage()
+    petImage.pet = pet
+    petImage.image = request.FILES['image']
+    petImage.save()
     return redirect('/accounts/myinfo')
 
 def showpet(request, id):
@@ -35,14 +39,17 @@ def updatepet(request, id):
     return render(request, 'pets/updatepet.html', {'pet':pet, 'form': form})
   elif request.method == 'POST':
     pet = Pet.objects.filter(id=id)
-    pet_ = Pet.objects.get(pk=id)
+    pet_ = Pet.objects.get(id=id)
+    Petimage.objects.filter(pet=pet_).delete()
+    petImage = Petimage()
+    petImage.pet = pet_
+    petImage.image = request.FILES['image']
+    petImage.save()
     name = request.POST['name']
     category = request.POST['category']
-    image = request.FILES['image']
     introduction = request.POST['introduction']
-    print(pet_.image.path)
     owner=request.user.profile
-    pet.update(name=name, image=image, introduction=introduction, owner=owner, category = category)
+    pet.update(name=name, introduction=introduction, owner=owner, category = category)
     return redirect('pets:showpet', id=id)
 
 class FollowView:

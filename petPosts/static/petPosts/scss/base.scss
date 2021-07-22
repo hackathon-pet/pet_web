@@ -14,3 +14,16 @@ html {
 .mdl-navigation__link{
     color: black!important;
 }
+
+
+.u-footer {
+    background-image: none;
+}
+.u-grey-80, .u-body.u-grey-80, .u-container-style.u-grey-80:before, .u-table-alt-grey-80 tr:nth-child(even) {
+    padding-top: 1%;
+    color: #ffffff;
+    background-color: #333333;
+}
+.u-align-center {
+    text-align: center;
+}
