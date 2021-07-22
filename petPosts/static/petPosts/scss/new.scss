@@ -46,11 +46,11 @@
 }
 
 .title{
-    text-align: left;
+    text-align: right;
     color: black;
     font-family: Raleway, sans-serif !important;
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 25px;
     margin-top: 12%;
     text-shadow:  1px 1px 1px black ;
     margin-bottom: 12%;
@@ -66,6 +66,16 @@
     letter-spacing: 3px;
     color:black;
     margin-top: 7%;
+}
+#pet-name {
+    text-align: left;
+    color: black;
+    //font-family: Raleway, sans-serif !important;
+    font-family: 'Do Hyeon', sans-serif !important;
+    font-size: 35px;
+    margin-top: 12%;
+    text-shadow:  1px 1px 1px black ;
+    margin-bottom: 12%;
 }
 
 .input{
