@@ -1,28 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
- <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}의 새 포스트 작성</h1>
-  <form action="{% url 'petPosts:new' id %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <!--<p>나의 펫,</p>
-    <div class="form-group">
+
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/new.scss' %}">
+{% endblock style %}
+
+<div class="whole">
+  <div class="container">
+    <div class="left">
+      <div class="image">
+        <img class="pet-img" src="{{pet.image.url}}" width="200">
+      </div>
+      <h1 id="pet-name" data-pet-id="{{ pet.id }}">{{ pet.name }}</h1>
+      <h2 class="title" data-pet-id="{{ pet.id }}">새 피드></h2>
+    </div>
+
+
+
+    <!--<div class="form-group">
         <select name="pet" class="selectpicker" data-title="Select Pet" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
           {% for x,y in form.fields.category.choices %}
             <option value="{{ x }}"{% if form.fields.category.value == x %} selected{% endif %}>{{ y }}</option>
           {% endfor %}
         </select>
     </div>
-    <p>의 포스트 작성</p>-->
+    <p>의 포스트 작성</p>
     <p>태그 선택</p>
     {% for tag in tags %}
       {{ tag.content }}
       <input name="tags" type="checkbox" value={{tag.id}} />
-    {% endfor %}
-    <p>title</p>
-    <input name="title" /> <br />
-    <input type="file" name="imgs" multiple>
-    <p>content</p>
-    <textarea name="content" rows="30" cols="50"></textarea> <br />
-    <input type="submit" value="submit" />
-  </form>
+    {% endfor %}-->
+
+    <div class="right">
+        <form action="{% url 'petPosts:new' id %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <p class="text">title</p>
+          <input class="input" name="title">
+          <p class="text">피드 이미지</p>
+          <input class="input" type="file" name="imgs" multiple>
+          <p class="text">content</p>
+          <textarea class="input" name="content" rows="8" cols="50"></textarea> <br />
+          <input class="input" type="submit" value="submit" />
+        </form>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
