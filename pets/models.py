@@ -5,6 +5,8 @@ from django import forms
 from accounts.models import Profile
 from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Pet(models.Model):
   name = models.CharField(max_length=20, blank=True)
@@ -22,7 +24,14 @@ class Pet(models.Model):
   category = models.CharField(max_length=2, choices=PET_CHOICES, blank=True, null=True, verbose_name="category")
   #age?
   introduction = models.CharField(max_length=100, blank=True)
-  image = ProcessedImageField(
+  follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
+
+  def __str__(self):     
+    return self.name
+
+class Petimage(models.Model):
+    pet = models.OneToOneField(Pet, on_delete=models.CASCADE)
+    image = ProcessedImageField(
                           upload_to='images/', blank=True, null=True,
                           processors=[ # 어떤 가공을 할지 
                               Thumbnail(300, 300),
@@ -32,10 +41,6 @@ class Pet(models.Model):
                             'quality':90,
                           },
                         )
-  follow_users = models.ManyToManyField(User, blank=True, related_name='following_pets', through='Follow')
-
-  def __str__(self):     
-    return self.name
 
 class PetForm(forms.ModelForm):
 
