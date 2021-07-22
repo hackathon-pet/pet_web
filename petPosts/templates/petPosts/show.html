@@ -2,7 +2,6 @@
 
 {% load sass_tags %}
 {% block style %}
-
 <link rel="stylesheet" type="text/css" href="{% sass_src 'petPosts/scss/show.scss' %}">
 {% endblock style %}
 {% load static %}
@@ -12,12 +11,13 @@
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/show2.js' %}"></script>
 <div>
-
+<a href="{% url 'petPosts:index' %}">home<svg class="u-svg-content-2" viewBox="0 -32 426.66667 426" style="width: 1em; height: 1em;"><path d="m213.332031 181.667969c0 4.265625-1.277343 8.53125-3.625 11.730469l-106.667969 160c-3.839843 5.761718-10.238281 9.601562-17.707031 9.601562h-64c-11.730469 0-21.332031-9.601562-21.332031-21.332031 0-4.269531 1.28125-8.535157 3.625-11.734375l98.773438-148.265625-98.773438-148.269531c-2.34375-3.199219-3.625-7.464844-3.625-11.730469 0-11.734375 9.601562-21.335938 21.332031-21.335938h64c7.46875 0 13.867188 3.839844 17.707031 9.601563l106.667969 160c2.347657 3.199218 3.625 7.464844 3.625 11.734375zm0 0"></path><path d="m426.667969 181.667969c0 4.265625-1.28125 8.53125-3.628907 11.730469l-106.664062 160c-3.839844 5.761718-10.242188 9.601562-17.707031 9.601562h-64c-11.734375 0-21.335938-9.601562-21.335938-21.332031 0-4.269531 1.28125-8.535157 3.628907-11.734375l98.773437-148.265625-98.773437-148.269531c-2.347657-3.199219-3.628907-7.464844-3.628907-11.730469 0-11.734375 9.601563-21.335938 21.335938-21.335938h64c7.464843 0 13.867187 3.839844 17.707031 9.601563l106.664062 160c2.347657 3.199218 3.628907 7.464844 3.628907 11.734375zm0 0"></path></svg><img></a>
+<a href="{% url 'pets:showpet' id=post.pet.id %}">펫 페이지로 돌아가기</a>
 <section class="feed">
 
   <div class="pet-intro">
   <div class="pet-photo">
-  <img class="pet-image" src="{{post.pet.image.url}}" width="500">
+  <img class="pet-image" src="{{post.pet.petimage.image.url}}" width="500">
   </div>
   <div class="petname">{{post.pet.name}}</div>
   <div class="right-component">
@@ -27,9 +27,8 @@
   </div>
   <div class="feedzone">
   <div class="postzone">
-    <div id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
-    <div class="post-date" >{{ post.created_at }}</div>
-
+    <div class="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
+    <div class="post-date">{{ post.created_at }}</div>
     {% for photo in post.photo_set.all%}
       <img src="{{photo.image.url}}"><br>
     {% endfor %}
@@ -52,7 +51,6 @@
         </div>
         {% endif %}
       </div>
-
     <div class="post-content">{{ post.content }}</div>
     {% if post.pet.owner == request.user.profile %}
     <div class="edit">
@@ -84,13 +82,14 @@
         {% if request.user == comment.author %}
           <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">댓글 삭제</a>
         {% endif %}
-
         </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
+</div>
+</div>
+</div>
 </section>
 </div>
 {% endblock content %}
