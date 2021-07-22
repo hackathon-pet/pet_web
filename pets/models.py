@@ -5,6 +5,8 @@ from django import forms
 from accounts.models import Profile
 from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Pet(models.Model):
   name = models.CharField(max_length=20, blank=True)

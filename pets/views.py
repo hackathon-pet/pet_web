@@ -18,7 +18,7 @@ def newpet(request):
     pet.save()
     petImage = Petimage()
     petImage.pet = pet
-    petImage.image = request.FILES.get('image')
+    petImage.image = request.FILES['image']
     petImage.save()
     return redirect('/accounts/myinfo')
 

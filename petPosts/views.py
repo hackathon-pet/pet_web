@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Post, Photo, Comment, Like, CommentLike
-from pets.models import Pet,PetForm
+from pets.models import Pet, PetForm, Petimage
 from accounts.models import Profile
 from pets.models import Pet
 from django.db.models import Count, Sum
