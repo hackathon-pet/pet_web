@@ -1,0 +1,66 @@
+html {
+  background-color: #d9d9d9;
+  font-family: system-ui;
+  -webkit-font-smoothing: antialiased; }
+
+.posts {
+  padding-bottom: 10%;
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 4% 1.8%; }
+  @media (min-width: 30em) {
+    .posts {
+      grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 60em) {
+    .posts {
+      grid-template-columns: repeat(3, 1fr); } }
+.posts .post-thumb {
+  background: white;
+  font-family: 'Nanum Gothic', sans-serif;
+  color: black;
+  text-decoration: none;
+  box-shadow: 5px 5px 5px #000;
+  display: flex;
+  flex-direction: column;
+  padding: 4%;
+  position: relative;
+  top: 0;
+  transition: all .1s ease-in; }
+  .posts .post-thumb:hover {
+    top: -2px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); }
+  .posts .post-thumb .text {
+    padding: 3.5% 0 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column; }
+  .posts .post-thumb .title {
+    font-size: 25px;
+    margin: 0;
+    color: #333;
+    text-align: center; }
+  .posts .post-thumb .date {
+    font-size: 10px;
+    text-align: right;
+    font-weight: bold;
+    color: #999;
+    letter-spacing: .05em;
+    margin: 1em 0 0 0; }
+  .posts .post-thumb .photo {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center center;
+    align-items: center; }
+  .posts .post-thumb .photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; }
+
+/*# sourceMappingURL=showpetpost.css.map */
