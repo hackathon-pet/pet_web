@@ -150,13 +150,11 @@
   </div>
   <div class="comments">
     <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다</strong>
-    <div>
       <p>
       {% csrf_token %}
       <textarea class="input" id="post{{post.id}}-comment-input" type="text" name="content" rows="1", cols="50" placeholder="댓글 달기..."></textarea>
       <!--<input class="input" id="post{{post.id}}-comment-input" type="text" name="content" placeholder="댓글 달기..."></input>-->
       <button class="button" onclick="onAddComment({{post.id}})">게시</button>
-    </div>
   </div>
   </div>
   <div id="{{post.id}}-comment-list" class="list">
