@@ -162,6 +162,7 @@
   border-left: 0;
   border-right: 0;
   resize: none;
+  max-width: 80%;
 }
 
 .button{
@@ -169,6 +170,7 @@
   border: none;
   width: 70px;
   height: 30px;
+  float: right;
 }
 
 .list{
