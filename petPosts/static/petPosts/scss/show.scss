@@ -195,19 +195,23 @@ html{
 */
 
 //style by keepTaeBorn
+
 .whole{
   background-color : #d9d9d9;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
+  min-width: 1000px;
+  min-height: 1000px;
 }
 
 .container {
   display: flex;
   flex-direction: row;
   width: 90%;
-  padding-top: 2%;
+  min-height: 1000px;
+  padding-top: 5%;
   padding-bottom: 5%;
 }
 
@@ -341,6 +345,10 @@ html{
 .comments{
   display: flex;
   flex-direction: column;
+}
+
+.comment{
+  overflow-wrap: anywhere;
 }
 
 #comment-count{

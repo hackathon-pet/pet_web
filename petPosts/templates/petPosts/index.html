@@ -34,7 +34,7 @@
          <div style="position: relative" class="group">
         </div>
         </div>
-      <img class="img" src="{% static 'petPosts/img/ffff.jpg'%}">
+      <img class="img" src="{% static 'petPosts/img/ffff.jpg'%}" width = "100%">
 
 <div id="target"> </div>
   <div class="container">
@@ -112,7 +112,9 @@
         </div>
         <p class="created_at"> 작성일 : {{post.created_at}} </p>
         {% for photo in post.photo_set.all%}
+        {% if forloop.first %}
         <img src="{{photo.image.url}}" width="80%" height="80%"><br>
+        {% endif %}
         {% endfor %}
         <div class="card-body">
         
