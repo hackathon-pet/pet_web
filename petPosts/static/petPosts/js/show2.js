@@ -12,13 +12,16 @@ const onSetCommentCount = (commentCount) => {
 const getCommentElement = (postId, commentId, commentCount, comment, createdTime, author) => {
   var commentElement = document.createElement('p');
   commentElement.id = `post${postId}-comment${commentId}`;
-  commentElement.style="margin-left: 5%";
 
-  commentElement.innerHTML = `${author}: ${comment} &nbsp; &nbsp; ${createdTime}
+  commentElement.innerHTML = `<div class="comment">
+                              <div class="com-con">${author} : ${comment} &nbsp; &nbsp;
+                              </div>
+                              <div class="com-info">
+                              ${createdTime}
                               <a id="comment${commentId}-like-button" onclick="onLikeComment(${commentId})">
                               ${ commentCount } Likes </a>
-                              <a onclick="onDeleteComment(${postId}, ${commentId})">댓글 삭제</a>`  
-  
+                              <a onclick="onDeleteComment(${postId}, ${commentId})">삭제</a>
+                              </div></div>`  
   return commentElement;
 }
 
@@ -29,7 +32,6 @@ const onAddComment = async (postId) => {
   const response = await axios.post(`/posts/${postId}/comments/`, data);
   const { commentId, commentCount, commentLikeCount, createdTime, author } = response.data;
   const commentElement = getCommentElement(postId, commentId, commentLikeCount, commentInputElement.value, createdTime, author);
-  
   document.getElementById(`${postId}-comment-list`).appendChild(commentElement);
   onSetCommentCount(commentCount);
   commentInputElement.value = '';

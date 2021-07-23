@@ -10,11 +10,9 @@
 {% endblock js %}
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{% static 'petPosts/js/show2.js' %}"></script>
-<div>
-<a href="{% url 'petPosts:index' %}">home<svg class="u-svg-content-2" viewBox="0 -32 426.66667 426" style="width: 1em; height: 1em;"><path d="m213.332031 181.667969c0 4.265625-1.277343 8.53125-3.625 11.730469l-106.667969 160c-3.839843 5.761718-10.238281 9.601562-17.707031 9.601562h-64c-11.730469 0-21.332031-9.601562-21.332031-21.332031 0-4.269531 1.28125-8.535157 3.625-11.734375l98.773438-148.265625-98.773438-148.269531c-2.34375-3.199219-3.625-7.464844-3.625-11.730469 0-11.734375 9.601562-21.335938 21.332031-21.335938h64c7.46875 0 13.867188 3.839844 17.707031 9.601563l106.667969 160c2.347657 3.199218 3.625 7.464844 3.625 11.734375zm0 0"></path><path d="m426.667969 181.667969c0 4.265625-1.28125 8.53125-3.628907 11.730469l-106.664062 160c-3.839844 5.761718-10.242188 9.601562-17.707031 9.601562h-64c-11.734375 0-21.335938-9.601562-21.335938-21.332031 0-4.269531 1.28125-8.535157 3.628907-11.734375l98.773437-148.265625-98.773437-148.269531c-2.347657-3.199219-3.628907-7.464844-3.628907-11.730469 0-11.734375 9.601563-21.335938 21.335938-21.335938h64c7.464843 0 13.867187 3.839844 17.707031 9.601563l106.664062 160c2.347657 3.199218 3.628907 7.464844 3.628907 11.734375zm0 0"></path></svg><img></a>
-<a href="{% url 'pets:showpet' id=post.pet.id %}">펫 페이지로 돌아가기</a>
-<section class="feed">
 
+<!--
+<div>
   <div class="pet-intro">
   <div class="pet-photo">
   <img class="pet-image" src="{{post.pet.petimage.image.url}}" width="500">
@@ -25,13 +23,15 @@
 <a class="back" href="{% url 'pets:showpet' id=post.pet.id %}"><span class="text">BACK TO PET PAGE</span></a>
   </div>
   </div>
-  <div class="feedzone">
+  <section class="feed">
+      <div class="feedzone">
   <div class="postzone">
     <div class="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
     <div class="post-date">{{ post.created_at }}</div>
     {% for photo in post.photo_set.all%}
-      <img src="{{photo.image.url}}"><br>
+      <img src="{{photo.image.url}} " width="50%"><br>
     {% endfor %}
+
     <div class="like-container">
         {% if user.is_authenticated %}
         <a class="material-icons mdl-badge mdl-badge--overlap"
@@ -61,19 +61,17 @@
     </div>
   <div class="commentzone">
   <div class="comments">
-    <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다 </strong>
+    <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다</strong>
     <p>
     {% csrf_token %}
     <input class="input" id="post{{post.id}}-comment-input" type="text" name="content" />
   <button class="button" onclick="onAddComment({{post.id}})">댓글 달기</button>
-  <div id="{{post.id}}-comment-list">
+  <div id="{{post.id}}-comment-list" class="list">
     {% for comment in post.comment_set.all|dictsortreversed:"like_users.count" %}
     <div id="post{{post.id}}-comment{{comment.id}}">
       <div class="comment">
-        <div class="comment-author"> {{ comment.author }}</div>
-        <div class="comment-content"> {{ comment.content }}</div>
-        <div class="comment-bottom">
-        <div class="comment-date">{{ comment.created_at|date:'Y년 M d일 H:m'}}</div>
+      <div>
+      {{ comment.author }}: {{ comment.content }} &nbsp; &nbsp; {{ comment.created_at|date:'Y년 M d일 H:m'}}
         {% if user.is_authenticated %}
           <a id="comment{{comment.id}}-like-button" onclick="onLikeComment({{comment.id}})">
             {{ comment.like_users.count }} Likes
@@ -82,6 +80,11 @@
         {% if request.user == comment.author %}
           <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">댓글 삭제</a>
         {% endif %}
+        </div>
+                             
+        </div>
+  
+
         </div>
       </div>
     </div>
@@ -92,4 +95,99 @@
 </div>
 </section>
 </div>
+
+-->
+
+
+<!--style by keepTaeBorn-->
+<div class="whole">
+<div class="container">
+<div class="left">
+  <div class="pet">
+    <a href="{% url 'pets:showpet' id=post.pet.id %}"> <img class="pet-image" src="{{post.pet.petimage.image.url}}" width="50"> </a>
+    <div class="petname">{{post.pet.name}}</div>
+  </div>
+  
+  <div class="pics">
+    {% for photo in post.photo_set.all %}
+      <img class="pic" src="{{photo.image.url}} " width="100%"><br>
+    {% endfor %}
+  </div>
+</div>
+<div class="right">
+  <div class="title">
+    <div id="post-title" data-post-id="{{ post.id }}"> {{ post.title }} </div>
+    <div class="post-info">
+    {% if post.pet.owner == request.user.profile %}
+      <a href="{% url 'petPosts:update' id=post.id %}"> 수정 </a>
+      <a id="post-delete" onclick="onDeletePost({{post.id}}, {{post.pet.id}})"> 삭제 </a>
+    {% endif %}
+    {{ post.created_at }}
+    </div>
+  </div>
+  <div class="post-content">
+    {{ post.content }}
+  </div>
+  <div class="content-footer">
+  <div class="like-container">
+    {% if user.is_authenticated %}
+      <a class="material-icons mdl-badge mdl-badge--overlap"
+          data-badge="{{ post.like_users.count }}"
+          onclick="onClickLikeButton({{post.id}})"
+          id="{{post.id}}-like-button">
+          {% if user in post.like_users.all %}
+          favorite
+          {% else %}
+          favorite_border
+          {% endif %}
+        </a>
+        {% else %}
+        <div class="material-icons mdl-badge mdl-badge--overlap" 
+          data-badge="{{ post.like_users.count }}">
+          favorite
+        </div>
+        {% endif %}
+  </div>
+  <div class="comments">
+    <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다</strong>
+    <div>
+      <p>
+      {% csrf_token %}
+      <textarea class="input" id="post{{post.id}}-comment-input" type="text" name="content" rows="1", cols="50" placeholder="댓글 달기..."></textarea>
+      <!--<input class="input" id="post{{post.id}}-comment-input" type="text" name="content" placeholder="댓글 달기..."></input>-->
+      <button class="button" onclick="onAddComment({{post.id}})">게시</button>
+    </div>
+  </div>
+  </div>
+  <div id="{{post.id}}-comment-list" class="list">
+    {% for comment in post.comment_set.all|dictsortreversed:"like_users.count" %}
+      <div id="post{{post.id}}-comment{{comment.id}}" class="comment">
+        <div class="com-con">
+        {{ comment.author }} : {{ comment.content }} &nbsp; &nbsp; 
+        </div>
+        <div class="com-info">
+        {{ comment.created_at|date:'Y년 M d일 H:m'}}
+        {% if user.is_authenticated %}
+          <a id="comment{{comment.id}}-like-button" onclick="onLikeComment({{comment.id}})">
+            {{ comment.like_users.count }} Likes
+          </a>
+        {% endif %}
+        {% if request.user == comment.author %}
+          <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">삭제</a>
+        {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
 {% endblock content %}
