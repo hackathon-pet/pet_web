@@ -1,0 +1,103 @@
+.whole {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  padding-top: 2%;
+  padding-bottom: 5%; }
+
+.left {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #478ac9;
+  width: 30%;
+  padding-left: 4%;
+  box-shadow: 5px 5px 5px #000;
+  display: flex;
+  padding-right: 5%;
+  flex-direction: column;
+  justify-content: top; }
+
+.right {
+  padding-top: 5%;
+  padding-right: 15%;
+  background-color: white;
+  width: 70%;
+  box-shadow: 5px 5px 5px #000;
+  padding-bottom: 5%; }
+
+.back {
+  text-align: left;
+  color: black;
+  font-family: Raleway, sans-serif !important;
+  font-weight: bolder;
+  font-size: 20px;
+  margin-top: 12%;
+  text-shadow: 1px 1px 1px black;
+  margin-bottom: 12%; }
+
+.title {
+  text-align: right;
+  color: black;
+  font-family: Raleway, sans-serif !important;
+  font-weight: bolder;
+  font-size: 25px;
+  margin-top: 12%;
+  text-shadow: 1px 1px 1px black;
+  margin-bottom: 12%; }
+
+.text {
+  font-size: 25px;
+  margin: 0;
+  color: #333;
+  text-align: left;
+  margin-left: 10%;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: black;
+  margin-top: 7%; }
+
+#pet-name {
+  text-align: left;
+  color: white;
+  font-family: 'Do Hyeon', sans-serif !important;
+  font-size: 35px;
+  margin-top: 12%;
+  text-shadow: 1px 1px 1px black;
+  margin-bottom: 12%; }
+
+.input {
+  font-size: 1.125rem;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-family: Poppins;
+  line-height: 1;
+  word-wrap: break-word;
+  color: black;
+  margin-left: 10%;
+  margin-top: 5%;
+  width: 100%; }
+
+.text {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: black; }
+
+.file-upload {
+  margin-left: 10%;
+  letter-spacing: 1px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-weight: lighter; }
+
+.input[type=submit] {
+  background-color: #478ac9;
+  color: white;
+  margin-top: 2%;
+  width: 100%; }
+
+/*# sourceMappingURL=new.css.map */
