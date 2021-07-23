@@ -149,6 +149,10 @@
   flex-direction: column;
 }
 
+.comment{
+  overflow-wrap: anywhere;
+}
+
 #comment-count{
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
   font-weight: 400 !important;

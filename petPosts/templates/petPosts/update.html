@@ -19,9 +19,6 @@
     {% csrf_token %}
     <p class="text">title</p>
     <input class="input" name="title" value="{{post.title}}"/> <br />
-    {% for photo in post.photo_set.all%}
-      <img class="text" src="{{photo.image.url}}" width="200"><br>
-    {% endfor %}
     <input class="file-upload" type="file" name="imgs" multiple>
     <p class="text">content</p>
     <textarea class="input" name="content" rows="8" wrap="hard">{{ post.content }}</textarea> <br />

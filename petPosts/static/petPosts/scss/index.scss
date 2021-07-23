@@ -1,6 +1,7 @@
 html {
     scroll-behavior: smooth;
 }
+
 .container{
     display: flex;
     flex-direction: row;
@@ -19,6 +20,7 @@ html {
     left:50%; 
     transform:translateX(-50%);
 }
+
 .explanation{
     position: absolute;
     z-index: 10;
@@ -308,9 +310,7 @@ svg:not(:root) {
     border-color: lightslategray;
     border-width: 20px;
 }
-.img{
-    width: 100%;
-}
+
 .child{
     flex:1;
     width: 30%;
