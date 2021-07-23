@@ -10,7 +10,7 @@
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{% static 'pets/js/show.js' %}"></script>
 <div class="showpet">
-  <a href="{% url 'petPosts:index' %}">home</a>
+
   <div class="pet-image-and-name">
   <div class="image">
   <img class="pet-img" src="{{pet.petimage.image.url}}" width="600">
@@ -148,9 +148,11 @@
   <a href="{% url 'petPosts:show' id=post.id %}" style="text-decoration: none;">
     <div class="photo">
     {% for photo in post.photo_set.all %}
+      {% if forloop.first %}
       <img src="{{photo.image.url}}"><br>
-    </div>
+      {%endif%}
     {% endfor %}
+    </div>
     <div class="text">
       <div class="title">{{post.title}}</div>
       <div class="date">{{ post.created_at }}</div>
