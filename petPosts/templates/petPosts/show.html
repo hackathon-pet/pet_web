@@ -26,9 +26,8 @@
   <section class="feed">
       <div class="feedzone">
   <div class="postzone">
-    <div id="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
-    <div class="post-date" >{{ post.created_at }}</div>
-
+    <div class="post-title" data-post-id="{{ post.id }}">{{ post.title }}</div>
+    <div class="post-date">{{ post.created_at }}</div>
     {% for photo in post.photo_set.all%}
       <img src="{{photo.image.url}} " width="50%"><br>
     {% endfor %}
@@ -52,7 +51,6 @@
         </div>
         {% endif %}
       </div>
-
     <div class="post-content">{{ post.content }}</div>
     {% if post.pet.owner == request.user.profile %}
     <div class="edit">
@@ -82,7 +80,6 @@
         {% if request.user == comment.author %}
           <a onclick="onDeleteComment({{post.id}}, {{comment.id}})">댓글 삭제</a>
         {% endif %}
-
         </div>
                              
         </div>
@@ -91,9 +88,11 @@
         </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
+</div>
+</div>
+</div>
 </section>
 </div>
 
@@ -151,13 +150,11 @@
   </div>
   <div class="comments">
     <p id="comment-count"><strong>댓글이 {{ post.comment_set.count }}개 있습니다</strong>
-    <div>
       <p>
       {% csrf_token %}
       <textarea class="input" id="post{{post.id}}-comment-input" type="text" name="content" rows="1", cols="50" placeholder="댓글 달기..."></textarea>
       <!--<input class="input" id="post{{post.id}}-comment-input" type="text" name="content" placeholder="댓글 달기..."></input>-->
       <button class="button" onclick="onAddComment({{post.id}})">게시</button>
-    </div>
   </div>
   </div>
   <div id="{{post.id}}-comment-list" class="list">
