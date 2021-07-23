@@ -29,7 +29,6 @@ const onAddComment = async (postId) => {
   const response = await axios.post(`/posts/${postId}/comments/`, data);
   const { commentId, commentCount, commentLikeCount, createdTime, author } = response.data;
   const commentElement = getCommentElement(postId, commentId, commentLikeCount, commentInputElement.value, createdTime, author);
-  
   document.getElementById(`${postId}-comment-list`).appendChild(commentElement);
   onSetCommentCount(commentCount);
   commentInputElement.value = '';
